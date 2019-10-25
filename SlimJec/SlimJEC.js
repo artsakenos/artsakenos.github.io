@@ -53,15 +53,14 @@ function doSearch(search, limit, fuzzy) {
         }
     };
     xmlHttp.onerror = function (event) {
-        console.error(xmlHttp.statusText);
-        showError("ERRORE: " + xmlHttp.statusText);
+        showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + jec_host, 'warning');
     };
 
     try {
         // console.log(JSON.stringify(body));
         xmlHttp.send(JSON.stringify(body));
     } catch (domexception) {
-        showError("Attenzione: devi disattivare il CORS, o utilizzare un repository con credentials.");
+        showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
     }
 }
 
@@ -69,8 +68,7 @@ function saveCredentials(url, user, password) {
     jec_host = url;
     jec_user = user;
     jec_password = password;
-    var html_ok = '<div class="alert alert-success">Credentials correctly saved.</div>';
-    document.getElementById('total').innerHTML = html_ok;
+    showMessage('Credentials correctly saved.', 'success');
 }
 
 /**
@@ -120,8 +118,19 @@ function showHits(response) {
     document.getElementById('hits').innerHTML = html_output;
 }
 
-function showError(message) {
-    document.getElementById('error').innerHTML = '<div id="error" class="alert alert-warning">' + message + '</div>';
+/**
+ * 
+ * @param {type} message
+ * @param {type} type Il bootstrap button type: success, warning, ...
+ * @return {undefined}
+ */
+function showMessage(message, type) {
+    $("#notifications").fadeIn();
+    var html_message = '<div class="alert alert-' + type + '">' + message + '</div>';
+    $('#notifications').html(html_message);
+    setTimeout(function () {
+        $("#notifications").fadeOut("slow");
+    }, 10000);
 }
 
 /**
