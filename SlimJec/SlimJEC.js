@@ -134,5 +134,6 @@ function showMessage(message, type) {
 
 /**
  * TODO:
- * togliere il _search dall'url
+ * Mostrare gli indici presenti
+ * Mostrare i nested objects
  */
