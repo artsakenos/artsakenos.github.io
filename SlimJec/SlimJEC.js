@@ -6,12 +6,16 @@
 
 /**
  * Performs a search request against an Elasticsearch server.
- * @param {string} needle
+ * @param {string} search
  *   The string to search for.
- * @param {string} filter
+ * @param {string} fieldsearch
+ *   The field search in form of field:value
+ * @param {string} limit
  *   A string to use to filter by type. For example: 'article';
+ * @param {boolean} fuzzy
+ *   Decide if the search is fuzzy or exact match.;
  */
-function doSearch(search, limit, fuzzy) {
+function doSearch(search, limit, fieldsearch, fuzzy) {
 
     if (!limit) {
         limit = 10;
@@ -21,14 +25,28 @@ function doSearch(search, limit, fuzzy) {
         'size': limit
     };
 
+    // If empti does nothing.
+    var query = {};
+    body.query = query;
+
     if (search) {
         var fuzzy_match = {_all: search};
-        var query = {};
         if (fuzzy)
             query.fuzzy = fuzzy_match;
         else
             query.match = fuzzy_match;
-        body.query = query;
+    }
+
+    if (fieldsearch) {
+        var field_value = fieldsearch.split(':');
+        var bool = {
+            must: {
+                match: {
+                    [field_value[0]]: field_value[1]
+                }
+            }
+        };
+        query.bool = bool;
     }
 
     var xmlHttp = new XMLHttpRequest();
@@ -57,7 +75,7 @@ function doSearch(search, limit, fuzzy) {
     };
 
     try {
-        // console.log(JSON.stringify(body));
+        console.log(JSON.stringify(body));
         xmlHttp.send(JSON.stringify(body));
     } catch (domexception) {
         showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
@@ -104,9 +122,14 @@ function showHits(response) {
                 continue;
             if (Object.prototype.hasOwnProperty.call(hit, field)) {
 
+                var html_value = hit[field];
+                if (typeof html_value === "object") {
+                    html_value = '<pre id="json">' + JSON.stringify(html_value, null, 2) + '</pre>';
+                }
+
                 html_output += `<div class="jec_field_${field} jec_field_wrapper">
                     <span class="jec_field_label">${field}:</span>
-                    <span class="jec_field_content">${hit[field]}</span></div>\n`;
+                    <span class="jec_field_content">${html_value}</span></div>\n`;
             }
         }
 
@@ -118,9 +141,12 @@ function showHits(response) {
 }
 
 /**
+ * Show a notification.
  * 
  * @param {type} message
- * @param {type} type Il bootstrap button type: success, warning, ...
+ * @param {type} type Il bootstrap button type: success, warning, info, ..., 
+ * https://getbootstrap.com/docs/4.0/components/buttons/
+ * 
  * @return {undefined}
  */
 function showMessage(message, type) {
@@ -132,8 +158,25 @@ function showMessage(message, type) {
     }, 10000);
 }
 
-/**
- * TODO:
- * Mostrare gli indici presenti
- * Mostrare i nested objects
- */
+function showIndexes() {
+    // Here I make an Ajax query.
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(jec_user + ':' + jec_password));
+        },
+        success: function (data) {
+            document.getElementById('hits').innerHTML = '<pre>' + data + '</pre>';
+        },
+        error: function (data) {
+            document.getElementById('hits').innerHTML = 'ERROR:' + data;
+        },
+        type: "GET",
+        data: '',
+        contentType: "application/json; charset=utf-8",
+        url: jec_host + '/_cat/indices?v'
+    });
+}
+
