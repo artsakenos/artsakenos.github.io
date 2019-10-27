@@ -25,29 +25,31 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
         'size': limit
     };
 
-    // If empti does nothing.
-    var query = {};
+    // If empty does nothing.
+    var query = {
+        bool: {
+            must: [
+            ]
+        }
+    };
     body.query = query;
 
     if (search) {
-        var fuzzy_match = {_all: search};
+        var search_fuzzy = {fuzzy: {_all: search}};
+        var search_match = {match: {_all: search}};
         if (fuzzy)
-            query.fuzzy = fuzzy_match;
+            query.bool.must.push(search_fuzzy);
         else
-            query.match = fuzzy_match;
+            query.bool.must.push(search_match);
     }
 
     if (fieldsearch) {
-        var field_value = fieldsearch.split(':');
-        var bool = {
-            must: {
-                match: {
-                    [field_value[0]]: field_value[1]
-                }
-            }
-        };
-        query.bool = bool;
+        var fs_type = fieldsearch.split(':')[0];
+        var fs_value = fieldsearch.split(':')[1];
+        var fs_match = {match: {[fs_type]: fs_value}};
+        query.bool.must.push(fs_match);
     }
+
 
     var xmlHttp = new XMLHttpRequest();
     if (jec_user) {
@@ -82,10 +84,19 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
     }
 }
 
+window.onload = function () {
+    $('#conf_url').val(getCookie("jec_host"));
+    $('#conf_user').val(getCookie("jec_user"));
+    $('#conf_password').val(getCookie("jec_password"));
+};
+
 function saveCredentials(url, user, password) {
     jec_host = url;
     jec_user = user;
     jec_password = password;
+    setCookie("jec_host", jec_host, 30);
+    setCookie("jec_user", jec_user, 30);
+    setCookie("jec_password", jec_password, 30);
     showMessage('Credentials correctly saved.', 'success');
 }
 
@@ -180,3 +191,32 @@ function showIndexes() {
     });
 }
 
+// -----------------------------------------------------------------------------
+// ---------    Cookies
+// -----------------------------------------------------------------------------
+
+// Cookies
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) === ' ')
+            c = c.substring(1);
+        if (c.indexOf(name) === 0)
+            return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+function eraseCookie(name) {
+    setCookie(name, "", -1);
+}

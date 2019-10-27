@@ -1,31 +1,10 @@
 
 Slim Javascript Elasticsearch Client
 ====================================
-Pure Javascript Client to have a super basic access and make basic Elasticsearch queries.
+Pure Javascript Client to have a really basic read access to your ES instance.
 
-TODO
-====
-Combinare
-    {
-            "size":2,
-        "query": {
-            "fuzzy": {
-               "_all": "huawai"
-            }
-        }
-    }
+USAGE
+=====
+You can perform a fulltext search in match or fuzzy mode.
 
-con
-
-    "query": {
-        "bool": {
-            "must": [
-            	{"match": {"type": "AutoValue_Comment"}},
-   				{"bool": {"should": [
-                	{"match": {"tags": "worldnews"}}
-				]}},
-                {"exists": {"field": "type"}}
-            ]
-        }
-    }
-
+You can perform a match key=value search on the field you need.

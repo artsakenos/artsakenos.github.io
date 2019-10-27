@@ -61,9 +61,9 @@ Version    : 2019.10.25
 
             <div id="search_container" class="container">
                 <label for="search">Search</label>      <input type="text" id="search"/>
+                <label for="fuzzy">Fuzzy</label>        <input type="checkbox" id="fuzzy"/>
                 <label for="limit">Limit</label>        <input type="text" id="limit" maxlength="4" size="4" placeholder="10"/>
                 <label for="field">Field Search</label> <input type="text" id="field" placeholder="title:via col vento"/>
-                <label for="fuzzy">Fuzzy</label>    <input type="checkbox" id="fuzzy"/>
                 <button type="submit" class="btn btn-light" onclick="doSearch(
                                 document.getElementById('search').value,
                                 document.getElementById('limit').value,
