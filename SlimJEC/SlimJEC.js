@@ -4,6 +4,15 @@
  */
 /* global jec_user, jec_password, jec_host */
 
+window.onload = function () {
+    $('#conf_url').val(getCookie("jec_host"));
+    $('#conf_user').val(getCookie("jec_user"));
+    $('#conf_password').val(getCookie("jec_password"));
+
+    $('#conf_url_current').html('<small>Currently: <i>' + jec_host + '</i></small>');
+    $('#conf_user_current').html('<small>Currently: <i>' + jec_user + '</i></small>');
+};
+
 /**
  * Performs a search request against an Elasticsearch server.
  * @param {string} search
@@ -84,12 +93,6 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
     }
 }
 
-window.onload = function () {
-    $('#conf_url').val(getCookie("jec_host"));
-    $('#conf_user').val(getCookie("jec_user"));
-    $('#conf_password').val(getCookie("jec_password"));
-};
-
 function saveCredentials(url, user, password) {
     jec_host = url;
     jec_user = user;
@@ -135,7 +138,7 @@ function showHits(response) {
 
                 var html_value = hit[field];
                 if (typeof html_value === "object") {
-                    html_value = '<pre id="json">' + JSON.stringify(html_value, null, 2) + '</pre>';
+                    html_value = toJson(html_value);
                 }
 
                 html_output += `<div class="jec_field_${field} jec_field_wrapper">
@@ -155,7 +158,7 @@ function showHits(response) {
  * Show a notification.
  * 
  * @param {type} message
- * @param {type} type Il bootstrap button type: success, warning, info, ..., 
+ * @param {type} type Il bootstrap button type: success, warning, info, danger, ..., 
  * https://getbootstrap.com/docs/4.0/components/buttons/
  * 
  * @return {undefined}
@@ -170,7 +173,7 @@ function showMessage(message, type) {
 }
 
 function showIndexes() {
-    // Here I make an Ajax query.
+    // Here I'm trying with an Ajax query.
     $.ajax({
         xhrFields: {
             withCredentials: true
@@ -189,6 +192,36 @@ function showIndexes() {
         contentType: "application/json; charset=utf-8",
         url: jec_host + '/_cat/indices?v'
     });
+}
+
+function postData(mapping, body) {
+    var postUrl = jec_host + mapping;
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(jec_user + ':' + jec_password));
+        },
+        success: function (data) {
+            showMessage("Item has been succesfully posted.", "success");
+            document.getElementById('hits').innerHTML = toJson(data);
+        },
+        error: function (data) {
+            showMessage("There was an error posting the item (" + postUrl + ").", "danger");
+            document.getElementById('hits').innerHTML = toJson(data);
+        },
+        type: "POST",
+        data: body,
+        contentType: "application/json; charset=utf-8",
+        url: postUrl
+    });
+
+}
+
+function toJson(dataObject) {
+    return '<pre id="json">' + JSON.stringify(dataObject, null, 2) + '</pre>';
 }
 
 // -----------------------------------------------------------------------------
