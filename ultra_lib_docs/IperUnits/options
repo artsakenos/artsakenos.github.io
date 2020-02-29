@@ -1,0 +1,24 @@
+-classpath
+'C:/Users/andre/.m2/repository/org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/Users/andre/Documents/NetBeansProjects/IperUnits/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2020. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/andre/Documents/NetBeansProjects/IperUnits/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'IperUnits 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/andre/Documents/NetBeansProjects/IperUnits/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'IperUnits 1.0-SNAPSHOT API'
