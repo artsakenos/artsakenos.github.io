@@ -1,7 +1,6 @@
 #NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Sun Mar 08 22:31:29 CST 2020
+#Thu Mar 12 16:42:21 CST 2020
 UltraCMS-1.0-SNAPSHOT.jar>=
 UltraCMS-1.0-SNAPSHOT.pom>=
-UltraCMS-1.0-SNAPSHOT-jar-with-dependencies.jar>=
-UltraCMS-1.0-SNAPSHOT.pom>dropbox-mvn-repo=
-UltraCMS-1.0-SNAPSHOT.jar>dropbox-mvn-repo=
+UltraCMS-1.0-SNAPSHOT.pom>ultra-mvn-repo=
+UltraCMS-1.0-SNAPSHOT.jar>ultra-mvn-repo=

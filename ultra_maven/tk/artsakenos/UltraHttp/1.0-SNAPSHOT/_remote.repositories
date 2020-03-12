@@ -1,5 +1,4 @@
 #NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
-#Sun Mar 08 11:33:56 CST 2020
-UltraHttp-1.0-SNAPSHOT-jar-with-dependencies.jar>=
-UltraHttp-1.0-SNAPSHOT.jar>=
-UltraHttp-1.0-SNAPSHOT.pom>=
+#Thu Mar 12 16:36:32 CST 2020
+UltraHttp-1.0-SNAPSHOT.jar>ultra-mvn-repo=
+UltraHttp-1.0-SNAPSHOT.pom>ultra-mvn-repo=
