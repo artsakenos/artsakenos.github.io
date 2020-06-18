@@ -15,6 +15,7 @@ window.onload = function () {
 
 /**
  * Performs a search request against an Elasticsearch server.
+ * 
  * @param {string} search
  *   The string to search for.
  * @param {string} fieldsearch
@@ -185,7 +186,7 @@ function showIndexes() {
             document.getElementById('hits').innerHTML = '<pre>' + data + '</pre>';
         },
         error: function (data) {
-            document.getElementById('hits').innerHTML = 'ERROR:' + data;
+            document.getElementById('hits').innerHTML = '<b>ERROR</b>:<pre>' + JSON.stringify(data, null, 4) + '</pre>';
         },
         type: "GET",
         data: '',
@@ -194,15 +195,72 @@ function showIndexes() {
     });
 }
 
+/**
+ * Ajax può avere dei CORS problem, quindi utilizzo Javascript.
+ * 
+ * @param {type} mapping The mapping, e.g., /infodev/infodev, or /infodev/_doc/myid
+ * @param {type} body The body (already stringified!)
+ */
 function postData(mapping, body) {
+
+    var postUrl = jec_host + mapping;
+    var xmlHttp = new XMLHttpRequest();
+
+    if (jec_user) {
+        // xmlHttp.withCredentials = true;  // Per esplicitare la richiesta di credenziali?
+        var credentials = window.btoa(jec_user + ':' + jec_password); // Senza questo chiede le credential esplicitamente.
+        xmlHttp.open('POST', postUrl, [true, jec_user, jec_password]);
+        xmlHttp.setRequestHeader("Authorization", "Basic " + credentials);
+    } else {
+        xmlHttp.open('POST', postUrl, false); // Senza credenziali
+    }
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+    xmlHttp.onload = function (event) {
+        if (xmlHttp.readyState === 4) {
+            if (xmlHttp.status === 200) {
+                var response = JSON.parse(xmlHttp.responseText);
+                showMessage(JSON.stringify(response, null, 4), 'success');
+                console.log(response);
+            } else {
+                showMessage('Connection Error OnLoad (' + xmlHttp.statusText + '), check the URL ' + postUrl, 'warning');
+            }
+        }
+    };
+    xmlHttp.onerror = function (event) {
+        showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + postUrl, 'warning');
+    };
+
+    try {
+        xmlHttp.send(body); // E' già in Json
+    } catch (domexception) {
+        showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
+    }
+
+}
+
+/**
+ * Non funziona sempre, ad esempio funziona su Bonsai ma non su Searchly. 
+ * Dunque utilizzo postData(...).
+ * 
+ * @param {type} mapping The mapping, e.g., /infodev/infodev, or /infodev/_doc/myid
+ * @param {type} body The body (already stringified!)
+ */
+function postDataCORS(mapping, body) {
     var postUrl = jec_host + mapping;
 
     $.ajax({
         xhrFields: {
-            withCredentials: true
+            withCredentials: true,
+            crossDomain: true
         },
         beforeSend: function (xhr) {
             xhr.setRequestHeader('Authorization', 'Basic ' + btoa(jec_user + ':' + jec_password));
+            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhr.setRequestHeader('Access-Control-Request-Headers', 'x-requested-with');
+            xhr.setRequestHeader('Access-Control-Allow-Credentials', true);
+            xhr.setRequestHeader('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+            xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         },
         success: function (data) {
             showMessage("Item has been succesfully posted.", "success");
@@ -214,6 +272,7 @@ function postData(mapping, body) {
         },
         type: "POST",
         data: body,
+        crossDomain: true,
         contentType: "application/json; charset=utf-8",
         url: postUrl
     });
