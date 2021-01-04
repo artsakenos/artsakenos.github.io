@@ -1,14 +1,11 @@
 /* 
  UltraJS: a suite of general purpose function to augment JavaScript
-
+ 
  Created on : 25 ott 2019, 12:08:05
  Author     : artsakenos
  */
 
 /* global CryptoJS */
-
-window.onload = function () {
-};
 
 /**
  * Load parameters in global urlParams. Access them with urlParams["key"];
@@ -16,10 +13,12 @@ window.onload = function () {
 var urlParams;
 (window.onpopstate = function () {
     var match,
-        pl = /\+/g,  // Regex for replacing addition symbol with a space
-        search = /([^&=]+)=?([^&]*)/g,
-        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-        query = window.location.search.substring(1);
+            pl = /\+/g, // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) {
+                return decodeURIComponent(s.replace(pl, " "));
+            },
+            query = window.location.search.substring(1);
 
     urlParams = {};
     while (match = search.exec(query))
@@ -41,7 +40,7 @@ function aes_decrypt(message = '', key = '') {
  * Show a notification.
  * 
  * @param {type} message
- * @param {type} type Il bootstrap button type: success, warning, info, danger, ..., 
+ * @param {type} type The bootstrap button type: success, warning, info, danger, ..., 
  * https://getbootstrap.com/docs/4.0/components/buttons/
  * 
  * @return {undefined}
@@ -63,7 +62,13 @@ function toJson(dataObject) {
 // ---------    Cookies
 // -----------------------------------------------------------------------------
 
-// Cookies
+/**
+ * Set a Cookie.
+ * 
+ * @param {type} cname The Cookie Name
+ * @param {type} cvalue The Cookie Value
+ * @param {type} exdays The Expire days
+ */
 function setCookie(cname, cvalue, exdays) {
     var d = new Date();
     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
@@ -71,6 +76,12 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
 }
 
+/**
+ * Get the value of a Cookie.
+ * 
+ * @param {type} cname The Cookie Name
+ * @returns {String} The value of the Cookie as a String.
+ */
 function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);

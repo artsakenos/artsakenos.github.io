@@ -9,6 +9,15 @@ var secret;
 
 window.onload = function () {
 
+    $('#conf_url').val(getCookie("jec_host"));
+    $('#conf_user').val(getCookie("jec_user"));
+    $('#conf_password').val(getCookie("jec_password"));
+
+    if (jec_host)
+        $('#conf_url_current').html('<small>Currently: <i>' + jec_host + '</i></small>');
+    if (jec_user)
+        $('#conf_user_current').html('<small>Currently: <i>' + jec_user + '</i></small>');
+
     sender = urlParams["sender"];
     receiver = urlParams["receiver"];
     secret = urlParams["secret"];
@@ -139,8 +148,8 @@ function showChatDiscussion(sender, receiver, secret, response) {
         html_output += "<div class='chat_item " + color + "'>" +
                 "[" + msg_date + "] " + msg_sender + "->" + msg_receiver + ": " + msg_content + "</div>\n";
     }
-    var html_total = `<h2>Showing ${response.hits.hits.length} of ${response.hits.total} results.</h2>`;
-    showMessage(html_total, 'success');
+    // var html_total = `<h2>Showing ${response.hits.hits.length} of ${response.hits.total} results.</h2>`;
+    // showMessage(html_total, 'success');
     document.getElementById('hits').innerHTML = html_output;
 }
 
@@ -150,6 +159,14 @@ function showChatDiscussion(sender, receiver, secret, response) {
  * @param {type} content The content
  */
 function sendMessage(content) {
+
+    if (!content || content === '')
+        return;
+    if (!sender || !receiver || !secret) {
+        showMessage("The Chat Sender, Receiver, and Secret must be defined. Please <b>Setup Credentials</b>.", "warning");
+        return;
+    }
+
     var date = new Date();
     var encrypted = false;
     if (secret) {
@@ -175,6 +192,16 @@ function sendMessage(content) {
     };
 
     postData("/delgado/delgado", JSON.stringify(body));
+}
+
+function saveCredentials_Chat(url, user, password, sender, receiver, secret, mapping) {
+    jec_host = url;
+    jec_user = user;
+    jec_password = password;
+    setCookie("jec_host", jec_host, 30);
+    setCookie("jec_user", jec_user, 30);
+    setCookie("jec_password", jec_password, 30);
+    showMessage('Credentials correctly saved.', 'success');
 }
 
 jQuery(document).ready(function () {

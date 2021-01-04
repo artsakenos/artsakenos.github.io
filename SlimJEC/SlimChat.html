@@ -19,11 +19,14 @@ Version    : 2019.10.25
 
         <title>SlimChat: Ultra Slim Javascript ElasticSearch Based Chat</title>
         <link rel="stylesheet" href="./SlimJEC.css">
-        <script type="application/javascript" src="SlimJEC_Config_Delgado.js"></script>
+
+        <!-- Replace your config file here -->
+        <!--<script type="application/javascript" src="SlimJEC_Config_Delgado.js"></script>-->
+        
         <script type="application/javascript" src="../ultra_js/UltraJS.js"></script>
         <script type="application/javascript" src="../ultra_js/SlimJEC.js"></script>        
         <script type="application/javascript" src="../ultra_js/SlimChat.js"></script>      
-        
+
     </head>
 
     <body>
@@ -75,12 +78,12 @@ Version    : 2019.10.25
 
             <div id="credentials" class="container">
                 <div id="collapse_credentials" class="container collapse">
-                    The credentials are loaded from <a href="./SlimJEC_Config.js" target="_blank">SlimJEC_Config.js</a>.
+                    The credentials are loaded importing a file like this: <a href="./SlimJEC_Config.js" target="_blank">SlimJEC_Config.js</a>.
                     If you prefer, or you don't have access, set them here as well.<p>
                     <table>
                         <tr>
                             <td style="text-align: right">ElasticSearch URL</td>
-                            <td><input type="text" id="conf_url"/></td>
+                            <td><input type="text" placeholder="http(s)://example.org" id="conf_url"/></td>
                             <td id="conf_url_current"></td>
                         </tr>
                         <tr>
@@ -134,7 +137,6 @@ Version    : 2019.10.25
                 </div>
             </div>
 
-            <!--<div id="notifications" class="container"></div>-->
             <div id="hits" class="container"></div>
 
             <div id="send_message" class="container">
@@ -142,20 +144,22 @@ Version    : 2019.10.25
                     <div class="input-group">
                         <input id="chat_input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here...">
                         <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm" id="btn-chat" onclick="sendMessage(
-                            document.getElementById('chat_input').value
-                            );">Send</button>
+                            <button class="btn btn-light" id="btn-chat" onclick="sendMessage(
+                                            document.getElementById('chat_input').value
+                                            );">Send</button>
                         </span>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div id="notifications" class="container"></div>
+
         <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-8">
-                        SlimChat - a feather light JavaScript ElasticSearch Based Chat.
+                        SlimChat - a feather light End to End encrypted JavaScript ElasticSearch Based Chat.
                         <a href="https://github.com/artsakenos/SlimJec/blob/master/README.md" target="_blank">Read more</a>.
                     </div>
                     <div class="col-md-4">

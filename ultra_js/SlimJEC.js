@@ -1,6 +1,6 @@
 /* 
  Library for a slim Javascript ElasticSearch Connection.
- Needs: <script type="application/javascript" src="UltraJS.js"></script>
+ Needs: UltraJS.js
  
  Created on : 25 ott 2019, 12:08:05
  Author     : artsakenos
@@ -25,7 +25,7 @@ window.onload = function () {
  * @param {string} limit
  *   A string to use to filter by type. For example: 'article';
  * @param {boolean} fuzzy
- *   Decide if the search is fuzzy or exact match.;
+ *   Decide if the search is fuzzy or exact match;
  */
 function doSearch(search, limit, fieldsearch, fuzzy) {
 
@@ -158,7 +158,6 @@ function showHits(response) {
 }
 
 function showIndexes() {
-    // Here I'm trying with an Ajax query.
     $.ajax({
         xhrFields: {
             withCredentials: true
