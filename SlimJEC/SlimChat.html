@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <!--
-Slim Javascript ElasticSearch Client.
+Slim Javascript ElasticSearch Chat Client.
 
-Created on : 25 ott 2019, 12:08:05
+Created on : 25 Oct 2019, 12:08:05
 Author     : artsakenos
 Version    : 2019.10.25
 -->
@@ -15,14 +15,15 @@ Version    : 2019.10.25
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 
-        <title>SlimJEC: Ultra Slim Javascript ElasticSearch Client</title>
+        <title>SlimChat: Ultra Slim Javascript ElasticSearch Based Chat</title>
         <link rel="stylesheet" href="./SlimJEC.css">
-
-        <!-- Replace your config file here -->
         <script type="application/javascript" src="SlimJEC_Config_Delgado.js"></script>
         <script type="application/javascript" src="../ultra_js/UltraJS.js"></script>
-        <script type="application/javascript" src="../ultra_js/SlimJEC.js"></script>      
+        <script type="application/javascript" src="../ultra_js/SlimJEC.js"></script>        
+        <script type="application/javascript" src="../ultra_js/SlimChat.js"></script>      
+        
     </head>
 
     <body>
@@ -35,7 +36,7 @@ Version    : 2019.10.25
                     <img src="https://infodev.files.wordpress.com/2009/04/logoid.jpg" width="30" height="30" alt="">
                 </a>
 
-                <a class="navbar-brand" href="#">SlimJEC</a>
+                <a class="navbar-brand" href="#">SlimChat</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -44,7 +45,7 @@ Version    : 2019.10.25
                     <ul class="navbar-nav mr-auto">
 
                         <li class="nav-item active">
-                            <a class="nav-link" href="./SlimJEC.html">Home <span class="sr-only">(current)</span></a>
+                            <a class="nav-link" href="./SlimChat.html">Home <span class="sr-only">(current)</span></a>
                         </li>
 
                         <li class="nav-item">
@@ -56,7 +57,7 @@ Version    : 2019.10.25
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_search" href="#" aria-expanded="true">Search Panel</a>
+                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_search" href="#" aria-expanded="false">Search Panel</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="collapse" data-target="#collapse_post" href="#">Post Data</a>
@@ -74,12 +75,12 @@ Version    : 2019.10.25
 
             <div id="credentials" class="container">
                 <div id="collapse_credentials" class="container collapse">
-                    The credentials are loaded importing a file like this: <a href="./SlimJEC_Config.js" target="_blank">SlimJEC_Config.js</a>.
+                    The credentials are loaded from <a href="./SlimJEC_Config.js" target="_blank">SlimJEC_Config.js</a>.
                     If you prefer, or you don't have access, set them here as well.<p>
                     <table>
                         <tr>
                             <td style="text-align: right">ElasticSearch URL</td>
-                            <td><input type="text" placeholder="http(s)://example.org" id="conf_url"/></td>
+                            <td><input type="text" id="conf_url"/></td>
                             <td id="conf_url_current"></td>
                         </tr>
                         <tr>
@@ -104,7 +105,7 @@ Version    : 2019.10.25
                 </div>
             </div>
 
-            <div id="collapse_search" class="container collapse show">
+            <div id="collapse_search" class="container collapse">
                 <label for="search">Search</label>      <input type="text" id="search"/>
                 <label for="fuzzy">Fuzzy</label>        <input type="checkbox" id="fuzzy"/>
                 <label for="limit">Limit</label>        <input type="text" id="limit" maxlength="4" size="4" placeholder="10"/>
@@ -133,15 +134,28 @@ Version    : 2019.10.25
                 </div>
             </div>
 
-            <div id="notifications" class="container"></div>
+            <!--<div id="notifications" class="container"></div>-->
             <div id="hits" class="container"></div>
+
+            <div id="send_message" class="container">
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="chat_input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here...">
+                        <span class="input-group-btn">
+                        <button class="btn btn-primary btn-sm" id="btn-chat" onclick="sendMessage(
+                            document.getElementById('chat_input').value
+                            );">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
             <div class="container text-center">
                 <div class="row">
                     <div class="col-md-8">
-                        SlimJEC - a feather light JavaScript ElasticSearch Client.
+                        SlimChat - a feather light JavaScript ElasticSearch Based Chat.
                         <a href="https://github.com/artsakenos/SlimJec/blob/master/README.md" target="_blank">Read more</a>.
                     </div>
                     <div class="col-md-4">
