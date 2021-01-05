@@ -9,6 +9,7 @@ Version    : 2019.10.25
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <!-- JQuery e Bootstrap -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -22,7 +23,7 @@ Version    : 2019.10.25
 
         <!-- Replace your config file here -->
         <script type="application/javascript" src="SlimJEC_Config_Delgado.js"></script>
-        
+
         <script type="application/javascript" src="../ultra_js/UltraJS.js"></script>
         <script type="application/javascript" src="../ultra_js/SlimJEC.js"></script>      
 
@@ -79,31 +80,33 @@ Version    : 2019.10.25
                 <div id="collapse_credentials" class="container collapse">
                     The credentials are loaded importing a file like this: <a href="./SlimJEC_Config.js" target="_blank">SlimJEC_Config.js</a>.
                     If you prefer, or you don't have access, set them here as well.<p>
-                    <table>
-                        <tr>
-                            <td style="text-align: right">ElasticSearch URL</td>
-                            <td><input type="text" placeholder="http(s)://example.org" id="conf_url"/></td>
-                            <td id="conf_url_current"></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right">UserName <small>(if needed)</small></td>
-                            <td><input type="text" id="conf_user"/></td>       
-                            <td id="conf_user_current"></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: right">Password</td>
-                            <td><input type="password" id="conf_password"/></td>                            
-                            <td>
-                                <button type="submit" class="btn btn-credentials btn-info"
-                                        data-toggle="collapse" data-target="#collapse_credentials" 
-                                        onclick="saveCredentials(
-                                                        document.getElementById('conf_url').value,
-                                                        document.getElementById('conf_user').value,
-                                                        document.getElementById('conf_password').value
-                                                        );">Confirm Credentials</button>
-                            </td>
-                        </tr>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td style="text-align: right">ElasticSearch URL</td>
+                                <td><input type="text" placeholder="http(s)://example.org" id="conf_url"/></td>
+                                <td id="conf_url_current"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">UserName <small>(if needed)</small></td>
+                                <td><input type="text" id="conf_user"/></td>       
+                                <td id="conf_user_current"></td>
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">Password</td>
+                                <td><input type="password" id="conf_password"/></td>                            
+                                <td>
+                                    <button type="submit" class="btn btn-credentials btn-info"
+                                            data-toggle="collapse" data-target="#collapse_credentials" 
+                                            onclick="saveCredentials(
+                                                            document.getElementById('conf_url').value,
+                                                            document.getElementById('conf_user').value,
+                                                            document.getElementById('conf_password').value
+                                                            );">Confirm Credentials</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
 

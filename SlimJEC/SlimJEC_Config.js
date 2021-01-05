@@ -1,5 +1,5 @@
 /* 
- * This is the Configurazion File for SlimJEC.
+ * This is the Configuration File for SlimJEC.
  * Replace the variables with your credentuals.
  * Empty or remove them if auth not needed.
  */

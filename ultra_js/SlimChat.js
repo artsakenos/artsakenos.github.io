@@ -2,10 +2,7 @@
  Created on : 25 ott 2020, 12:08:05
  Author     : artsakenos
  */
-/* global jec_user, jec_password, jec_host, urlParams */
-var sender;
-var receiver;
-var secret;
+/* global jec_user, jec_password, jec_host, urlParams, chat_mapping, chat_sender, chat_receiver, chat_secret */
 
 window.onload = function () {
 
@@ -13,15 +10,46 @@ window.onload = function () {
     $('#conf_user').val(getCookie("jec_user"));
     $('#conf_password').val(getCookie("jec_password"));
 
-    if (jec_host)
-        $('#conf_url_current').html('<small>Currently: <i>' + jec_host + '</i></small>');
-    if (jec_user)
-        $('#conf_user_current').html('<small>Currently: <i>' + jec_user + '</i></small>');
+    $('#conf_sender').val(getCookie("chat_sender"));
+    $('#conf_receiver').val(getCookie("chat_receiver"));
+    $('#conf_mapping').val(getCookie("chat_mapping"));
+    $('#conf_secret').val(getCookie("chat_secret"));
 
-    sender = urlParams["sender"];
-    receiver = urlParams["receiver"];
-    secret = urlParams["secret"];
-    if (sender && receiver && secret) {
+    if (Object.keys(urlParams).length >= 4) {
+        // Get values from query params and save them! This allow QR Code setups.
+        jec_host = urlParams["host"];
+        jec_user = urlParams["user"];
+        jec_password = urlParams["password"];
+
+        chat_sender = urlParams["sender"];
+        chat_receiver = urlParams["receiver"];
+        chat_secret = urlParams["secret"];
+        chat_mapping = urlParams["mapping"];
+
+        $('#conf_url').val(jec_host);
+        $('#conf_user').val(jec_user);
+        $('#conf_password').val(jec_password);
+
+        $('#conf_sender').val(chat_sender);
+        $('#conf_receiver').val(chat_receiver);
+        $('#conf_mapping').val(chat_mapping);
+        $('#conf_secret').val(chat_secret);
+    }
+
+    if (typeof jec_host === 'undefined') {
+        showMessage("In order to start go through the <b>Setup Credentials</b> Tab.", "info");
+        return;
+    }
+
+    $('#conf_url_current').html('<small>Currently: <i>' + jec_host + '</i></small>');
+    $('#conf_user_current').html('<small>Currently: <i>' + jec_user + '</i></small>');
+
+    $('#conf_sender_current').html('<small>Currently: <i>' + chat_sender + '</i></small>');
+    $('#conf_receiver_current').html('<small>Currently: <i>' + chat_receiver + '</i></small>');
+    $('#conf_mapping_current').html('<small>Currently: <i>' + chat_mapping + '</i></small>');
+
+
+    if (chat_sender && chat_receiver && chat_secret) {
         // getMessages(10);
         function get10Messages() {
             getMessages(10);
@@ -65,16 +93,16 @@ function getMessages(limit) {
                                 {
                                     "bool": {
                                         "must": [
-                                            {"match": {"receivers.id": receiver}},
-                                            {"match": {"sender.id": sender}}
+                                            {"match": {"receivers.id": chat_receiver}},
+                                            {"match": {"sender.id": chat_sender}}
                                         ]
                                     }
                                 },
                                 {
                                     "bool": {
                                         "must": [
-                                            {"match": {"receivers.id": sender}},
-                                            {"match": {"sender.id": receiver}}
+                                            {"match": {"receivers.id": chat_sender}},
+                                            {"match": {"sender.id": chat_receiver}}
                                         ]
                                     }
                                 }
@@ -103,7 +131,7 @@ function getMessages(limit) {
         if (xmlHttp.readyState === 4) {
             if (xmlHttp.status === 200) {
                 var response = JSON.parse(xmlHttp.responseText);
-                showChatDiscussion(sender, receiver, secret, response);
+                showChatDiscussion(response);
             } else {
                 showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + jec_host, 'warning');
             }
@@ -120,19 +148,15 @@ function getMessages(limit) {
         showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
     }
 
-
 }
 
 /**
  * Prints the results to the div: ...
- * @param {*} sender 
- * @param {*} receiver 
- * @param {*} secret 
  * @param {*} response 
  */
-function showChatDiscussion(sender, receiver, secret, response) {
+function showChatDiscussion(response) {
     var html_output = '';
-    for (var i = 0; i < response.hits.hits.length; i++) {
+    for (var i = response.hits.hits.length - 1; i >= 0; i--) {
         var hit = response.hits.hits[i]._source;
 
         var msg_content = hit.content;
@@ -141,10 +165,10 @@ function showChatDiscussion(sender, receiver, secret, response) {
         var msg_date = hit.created_iso8601;
         var msg_encrypted = hit.encrypted;
         if (msg_encrypted) {
-            msg_content = aes_decrypt(msg_content, secret);
+            msg_content = aes_decrypt(msg_content, chat_secret);
         }
 
-        var color = sender === msg_sender ? "sender" : "receiver";
+        var color = chat_sender === msg_sender ? "sender" : "receiver";
         html_output += "<div class='chat_item " + color + "'>" +
                 "[" + msg_date + "] " + msg_sender + "->" + msg_receiver + ": " + msg_content + "</div>\n";
     }
@@ -162,26 +186,26 @@ function sendMessage(content) {
 
     if (!content || content === '')
         return;
-    if (!sender || !receiver || !secret) {
+    if (!chat_sender || !chat_receiver || !chat_secret) {
         showMessage("The Chat Sender, Receiver, and Secret must be defined. Please <b>Setup Credentials</b>.", "warning");
         return;
     }
 
     var date = new Date();
     var encrypted = false;
-    if (secret) {
+    if (chat_secret) {
         encrypted = true;
-        content = aes_encrypt(content, secret);
+        content = aes_encrypt(content, chat_secret);
     }
 
     var body = {
         "encrypted": encrypted,
         "sender": {
-            "id": sender
+            "id": chat_sender
         },
         "receivers": [
             {
-                "id": receiver
+                "id": chat_receiver
             }
         ],
         "received": false,
@@ -191,16 +215,26 @@ function sendMessage(content) {
         "created_epoch": date.getTime()
     };
 
-    postData("/delgado/delgado", JSON.stringify(body));
+    postData(chat_mapping, JSON.stringify(body));
 }
 
-function saveCredentials_Chat(url, user, password, sender, receiver, secret, mapping) {
+function saveCredentials(url, user, password, sender, receiver, secret, mapping) {
     jec_host = url;
     jec_user = user;
     jec_password = password;
     setCookie("jec_host", jec_host, 30);
     setCookie("jec_user", jec_user, 30);
     setCookie("jec_password", jec_password, 30);
+
+    chat_sender = sender;
+    chat_receiver = receiver;
+    chat_secret = secret;
+    chat_mapping = mapping;
+    setCookie("chat_sender", chat_sender, 30);
+    setCookie("chat_receiver", chat_receiver, 30);
+    setCookie("chat_secret", chat_secret, 30);
+    setCookie("chat_mapping", chat_mapping, 30);
+
     showMessage('Credentials correctly saved.', 'success');
 }
 

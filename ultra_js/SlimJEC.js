@@ -8,9 +8,15 @@
 /* global jec_user, jec_password, jec_host */
 
 window.onload = function () {
+
     $('#conf_url').val(getCookie("jec_host"));
     $('#conf_user').val(getCookie("jec_user"));
     $('#conf_password').val(getCookie("jec_password"));
+
+    if (typeof jec_host === 'undefined') {
+        showMessage("In order to start go through the <b>Setup Credentials</b> Tab.", "info");
+        return;
+    }
 
     $('#conf_url_current').html('<small>Currently: <i>' + jec_host + '</i></small>');
     $('#conf_user_current').html('<small>Currently: <i>' + jec_user + '</i></small>');
@@ -47,8 +53,8 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
     body.query = query;
 
     if (search) {
-        var search_fuzzy = { fuzzy: { _all: search } };
-        var search_match = { match: { _all: search } };
+        var search_fuzzy = {fuzzy: {_all: search}};
+        var search_match = {match: {_all: search}};
         if (fuzzy)
             query.bool.must.push(search_fuzzy);
         else
@@ -58,7 +64,7 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
     if (fieldsearch) {
         var fs_type = fieldsearch.split(':')[0];
         var fs_value = fieldsearch.split(':')[1];
-        var fs_match = { match: { [fs_type]: fs_value } };
+        var fs_match = {match: {[fs_type]: fs_value}};
         query.bool.must.push(fs_match);
     }
 
@@ -181,6 +187,7 @@ function showIndexes() {
 function postData(mapping, body) {
     var postUrl = jec_host + mapping;
 
+    // Here i'm using Ajax instead XML HTTP request, this leads to CORS error in some repositories.
     $.ajax({
         xhrFields: {
             withCredentials: true

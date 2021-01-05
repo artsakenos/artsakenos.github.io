@@ -58,12 +58,61 @@ function toJson(dataObject) {
     return '<pre id="json">' + JSON.stringify(dataObject, null, 2) + '</pre>';
 }
 
+/**
+ * An HTTP Post request.
+ * 
+ * @param {type} url The URL
+ * @param {type} json_body The body, e.g., JSON.stringify(body)
+ * @param {type} user The user (null if no credentials)
+ * @param {type} password the password if any
+ * @param {type} post_callback A callback with a parameter to handle the response, e.g.,
+ * <pre>
+ *  inline: function (response) { console.log(response); } 
+ *  out:    function handle_me(response) { console.log(response); }
+ *  null:   null.
+ * </pre>
+ */
+function post_data(url, json_body, user, password, post_callback) { // json_body è Stringifyed
+    var xmlHttp = new XMLHttpRequest();
+    if (user) {
+        // xmlHttp.withCredentials = true;  // Per esplicitare la richiesta di credenziali?
+        var credentials = window.btoa(user + ':' + password); // Senza questo chiede le credential esplicitamente.
+        xmlHttp.open('POST', url, [true, user, password]);
+        xmlHttp.setRequestHeader("Authorization", "Basic " + credentials);
+    } else {
+        xmlHttp.open('POST', url, false); // Senza credenziali
+    }
+    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+
+    xmlHttp.onload = function (event) {
+        if (xmlHttp.readyState === 4) {
+            if (xmlHttp.status === 200 || xmlHttp.status === 201) {
+                var response = JSON.parse(xmlHttp.responseText);
+                if (post_callback)
+                    post_callback(response);
+            } else {
+                showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + url, 'warning');
+            }
+        }
+    };
+    xmlHttp.onerror = function (event) {
+        showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + url, 'warning');
+    };
+
+    try {
+        xmlHttp.send(json_body);
+    } catch (domexception) {
+        showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
+    }
+}
+
 // -----------------------------------------------------------------------------
 // ---------    Cookies
 // -----------------------------------------------------------------------------
 
 /**
- * Set a Cookie.
+ * Set a Cookie. Note: Cookies can be handled cross site not as local.
+ * (see httponly  flag).
  * 
  * @param {type} cname The Cookie Name
  * @param {type} cvalue The Cookie Value

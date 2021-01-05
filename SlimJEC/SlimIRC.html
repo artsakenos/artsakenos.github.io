@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<!--
+Slim IRC is a minimal standalone HTML Javascript messenger exploiting
+Elasticsearch repositories.
+
+Created on : 25 Oct 2019, 12:08:05
+Author     : artsakenos
+Version    : 2019.10.25
+-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- JQuery e Bootstrap -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src=" https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+
+        <title>SlimIRC: Ultra Slim Messenger</title>
+
+        <style>
+            footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                color: white;
+                text-align: center;
+            }
+
+            @media only screen and (max-width: 768px) {
+                .container{
+                    padding-right: 0px;
+                    padding-left: 0px;
+                }
+            }
+        </style>
+
+        <script>
+            var _0x4cea = ['chat_room', '#conf_room', '1SGpUus', 'setRequestHeader', 'fadeIn', 'expires=', 'onload', 'length', 'hits', 'charAt', 'sender', 'Utf8', 'toString', '70930oolFOl', 'secret', 'warning', 'You\x20must\x20define\x20your\x20Nickname,\x20the\x20Chat\x20Room,\x20and\x20Secret.\x20Please\x20setup\x20<b>Credentials</b>.', 'type', 'replace', 'Credentials\x20correctly\x20saved\x20for\x20', 'chat_secret', 'enc', 'Authorization', '#chat_input', '143280vbXVsN', 'parse', '),\x20check\x20the\x20URL\x20', 'preventDefault', 'responseText', '<div\x20class=\x22alert\x20alert-', '_source', 'U2FsdGVkX1/VcgtaR52iQqB0fYbnU6NZyPXYXb6CavpHYChnZYhlKhVo3GBtbAG99WI4WUQRfKE7b1zMMrvZFg==', ';path=/', 'innerHTML', 'btoa', 'encrypt', 'success', '#conf_secret', '167ETguOL', ']\x20#', '<div\x20class=\x27chat_item\x20', 'html', 'readyState', '1JlBkjU', 'content', 'slow', 'substring', 'val', 'keypress', 'indexOf', 'fadeOut', '123', '5MRlyFA', 'AES', 'created_iso8601', 'getTime', '2158wLyDYk', 'nickname', 'location', 'cookie', 'which', 'italia', 'toISOString', 'room', 'guest', 'POST', 'site', '</div>\x0a', 'keys', 'benice', 'setTime', 'stringify', 'desc', '215273SixnLr', 'MESSAGE', 'setInterval', 'receivers', '#conf_nickname', 'toUTCString', 'Connection\x20Error\x20(', '55tpQHHO', 'received', '</div>', '/_search', '25335CvLbgh', 'getElementById', 'Content-Type', 'chat_nickname', 'Basic\x20', '9551bhCwCY', 'open', '132379NspZQC', 'status', 'encrypted']; var _0x4acb = function(_0x377750, _0x1372ee){_0x377750 = _0x377750 - 0xdf; var _0x4ceae3 = _0x4cea[_0x377750]; return _0x4ceae3; }; var _0x4eb267 = _0x4acb; (function(_0x5c49b3, _0x3bf861){var _0x344572 = _0x4acb; while (!![]){try{var _0x5c7cdb = parseInt(_0x344572(0x12c)) * parseInt(_0x344572(0x10c)) + parseInt(_0x344572(0xfe)) * - parseInt(_0x344572(0x110)) + - parseInt(_0x344572(0x121)) * - parseInt(_0x344572(0x138)) + parseInt(_0x344572(0xe5)) + - parseInt(_0x344572(0xf0)) + - parseInt(_0x344572(0x133)) * parseInt(_0x344572(0x103)) + - parseInt(_0x344572(0x128)) * - parseInt(_0x344572(0x131)); if (_0x5c7cdb === _0x3bf861)break; else _0x5c49b3['push'](_0x5c49b3['shift']()); } catch (_0x5e2048){_0x5c49b3['push'](_0x5c49b3['shift']()); }}}(_0x4cea, 0x49c3a)); var urlParams; (window['onpopstate'] = function(){var _0x2b0f5 = _0x4acb, _0x1eea2b, _0x36ff58 = /\+/g, _0x1fa5e5 = /([^&=]+)=?([^&]*)/g, _0x5b83d4 = function(_0x29efa9){var _0x3b0bce = _0x4acb; return decodeURIComponent(_0x29efa9[_0x3b0bce(0xea)](_0x36ff58, '\x20')); }, _0x3f362b = window[_0x2b0f5(0x112)]['search'][_0x2b0f5(0x106)](0x1); urlParams = {}; while (_0x1eea2b = _0x1fa5e5['exec'](_0x3f362b))urlParams[_0x5b83d4(_0x1eea2b[0x1])] = _0x5b83d4(_0x1eea2b[0x2]); })(); function aes_encrypt(_0x18381f = '', _0x1831a3 = ''){var _0x5d6d1e = _0x4acb, _0x18381f = CryptoJS[_0x5d6d1e(0x10d)][_0x5d6d1e(0xfb)](_0x18381f, _0x1831a3); return _0x18381f[_0x5d6d1e(0xe4)](); }function aes_decrypt(_0x530beb = '', _0x4af287 = ''){var _0xc6ad8c = _0x4acb, _0x5588b4 = CryptoJS[_0xc6ad8c(0x10d)]['decrypt'](_0x530beb, _0x4af287), _0x876354 = _0x5588b4[_0xc6ad8c(0xe4)](CryptoJS[_0xc6ad8c(0xed)][_0xc6ad8c(0xe3)]); return _0x876354; }function showMessage(_0x155b4b, _0x4a417d){var _0x290d61 = _0x4acb; $('#notifications')[_0x290d61(0x13a)](); var _0x21bc9f = _0x290d61(0xf5) + _0x4a417d + '\x22>' + _0x155b4b + _0x290d61(0x12a); $('#notifications')[_0x290d61(0x101)](_0x21bc9f), setTimeout(function(){var _0x21b027 = _0x290d61; $('#notifications')[_0x21b027(0x10a)](_0x21b027(0x105)); }, 0x2710); }function toJson(_0x29ac7f){var _0x4820a1 = _0x4acb; return'<pre\x20id=\x22json\x22>' + JSON[_0x4820a1(0x11f)](_0x29ac7f, null, 0x2) + '</pre>'; }function post_data(_0x1f76e6, _0x36b457, _0x29c8c7, _0x3748f5, _0x2a0dff){var _0xb96587 = _0x4acb, _0x59e50b = new XMLHttpRequest(); if (_0x29c8c7){var _0x41557a = window[_0xb96587(0xfa)](_0x29c8c7 + ':' + _0x3748f5); _0x59e50b[_0xb96587(0x132)]('POST', _0x1f76e6, [!![], _0x29c8c7, _0x3748f5]), _0x59e50b[_0xb96587(0x139)](_0xb96587(0xee), _0xb96587(0x130) + _0x41557a); } else _0x59e50b[_0xb96587(0x132)](_0xb96587(0x119), _0x1f76e6, ![]); _0x59e50b[_0xb96587(0x139)](_0xb96587(0x12e), 'application/json;charset=UTF-8'), _0x59e50b[_0xb96587(0x13c)] = function(_0x5a258e){var _0x5f118b = _0xb96587; if (_0x59e50b[_0x5f118b(0x102)] === 0x4){if (_0x59e50b['status'] === 0xc8 || _0x59e50b[_0x5f118b(0x134)] === 0xc9){var _0x3482b1 = JSON[_0x5f118b(0xf1)](_0x59e50b[_0x5f118b(0xf4)]); if (_0x2a0dff)_0x2a0dff(_0x3482b1); } else showMessage(_0x5f118b(0x127) + _0x59e50b['statusText'] + _0x5f118b(0xf2) + _0x1f76e6, 'warning'); }}, _0x59e50b['onerror'] = function(_0x316015){var _0x1288b3 = _0xb96587; showMessage(_0x1288b3(0x127) + _0x59e50b['statusText'] + '),\x20check\x20the\x20URL\x20' + _0x1f76e6, _0x1288b3(0xe7)); }; try{_0x59e50b['send'](_0x36b457); } catch (_0x5f21b7){showMessage('Attenzione:\x20disattivare\x20il\x20CORS,\x20utilizzare\x20un\x20repository\x20con\x20credentials,\x20o\x20alloware\x20mixed\x20content\x20(se\x20da\x20https).', _0xb96587(0xe7)); }}function setCookie(_0x78ea42, _0x3e3e91, _0x110b70){var _0x592256 = _0x4acb, _0x54e59b = new Date(); _0x54e59b[_0x592256(0x11e)](_0x54e59b[_0x592256(0x10f)]() + _0x110b70 * 0x18 * 0x3c * 0x3c * 0x3e8); var _0x3b322c = _0x592256(0x13b) + _0x54e59b[_0x592256(0x126)](); document[_0x592256(0x113)] = _0x78ea42 + '=' + _0x3e3e91 + ';' + _0x3b322c + _0x592256(0xf8); }function getCookie(_0x52074e){var _0x5b0984 = _0x4acb, _0x24dc8b = _0x52074e + '=', _0x57cfdc = decodeURIComponent(document[_0x5b0984(0x113)]), _0x3760ec = _0x57cfdc['split'](';'); for (var _0x57beb5 = 0x0; _0x57beb5 < _0x3760ec['length']; _0x57beb5++){var _0x24f299 = _0x3760ec[_0x57beb5]; while (_0x24f299[_0x5b0984(0xe1)](0x0) === '\x20')_0x24f299 = _0x24f299[_0x5b0984(0x106)](0x1); if (_0x24f299[_0x5b0984(0x109)](_0x24dc8b) === 0x0)return _0x24f299['substring'](_0x24dc8b[_0x5b0984(0xdf)], _0x24f299[_0x5b0984(0xdf)]); }return''; }function eraseCookie(_0x5520b9){setCookie(_0x5520b9, '', - 0x1); }var jec_user = _0x4eb267(0x11a), jec_password = aes_decrypt('U2FsdGVkX1/C9X6j75MMbzvWazhhGEkjZVf+LWzP6KbwUfGkvg8kVGzTpJQo1qREyJiNSfUicqzbRFKLa/NqLg==', _0x4eb267(0x11d)), jec_host = aes_decrypt(_0x4eb267(0xf7), _0x4eb267(0x11d)), chat_mapping = '/delgado/_doc', chat_nickname = _0x4eb267(0x118), chat_room = _0x4eb267(0x115), chat_secret = _0x4eb267(0x10b); window[_0x4eb267(0x13c)] = function(){var _0x30e973 = _0x4eb267; chat_nickname = getCookie('chat_nickname'), chat_room = getCookie(_0x30e973(0x136)), chat_secret = getCookie(_0x30e973(0xec)); Object[_0x30e973(0x11c)](urlParams)['length'] === 0x3 && (chat_nickname = urlParams[_0x30e973(0x111)], chat_room = urlParams[_0x30e973(0x117)], chat_secret = urlParams[_0x30e973(0xe6)], saveCredentials(chat_nickname, chat_room, chat_secret)); $(_0x30e973(0x125))[_0x30e973(0x107)](chat_nickname), $(_0x30e973(0x137))[_0x30e973(0x107)](chat_room), $(_0x30e973(0xfd))['val'](chat_secret); if (chat_nickname && chat_room && chat_secret){function _0x2ed307(){getMessages(0xa); }window[_0x30e973(0x123)](_0x2ed307, 0x1388); }}; function saveCredentials(_0x3dac00, _0x3516e7, _0x5eab6e){var _0x2763c8 = _0x4eb267; chat_nickname = _0x3dac00, chat_room = _0x3516e7, chat_secret = _0x5eab6e, setCookie(_0x2763c8(0x12f), chat_nickname, 0x1e), setCookie('chat_room', chat_room, 0x1e), setCookie(_0x2763c8(0xec), chat_secret, 0x1e), showMessage(_0x2763c8(0xeb) + chat_nickname + ',\x20in\x20#' + chat_room + '.', _0x2763c8(0xfc)); function _0x4a7684(){getMessages(0xa); }window[_0x2763c8(0x123)](_0x4a7684, 0x1388); }function getMessages(_0x5477a4){var _0x307ffa = _0x4eb267, _0x5c14b1 = {'_source':['id', _0x307ffa(0xe2), _0x307ffa(0x124), _0x307ffa(0x129), 'encrypted', _0x307ffa(0x104), 'created_epoch', _0x307ffa(0x10e), 'type', _0x307ffa(0x112)], 'size':_0x5477a4, 'sort':[{'created_epoch':{'order':_0x307ffa(0x120)}}], 'query':{'bool':{'must':[{'bool':{'should':[{'match':{'type':_0x307ffa(0x122)}}]}}, {'match':{'receivers.id':chat_room}}, {'exists':{'field':_0x307ffa(0xe9)}}]}}}; post_data(jec_host + _0x307ffa(0x12b), JSON['stringify'](_0x5c14b1), jec_user, jec_password, showChatDiscussion); }function showChatDiscussion(_0x41ef66){var _0x352b7d = _0x4eb267, _0x3c4205 = ''; for (var _0xffb709 = _0x41ef66['hits'][_0x352b7d(0xe0)][_0x352b7d(0xdf)] - 0x1; _0xffb709 >= 0x0; _0xffb709--){var _0xb7c718 = _0x41ef66[_0x352b7d(0xe0)][_0x352b7d(0xe0)][_0xffb709][_0x352b7d(0xf6)], _0x30eb7f = _0xb7c718['content'], _0x265063 = _0xb7c718[_0x352b7d(0xe2)]['id'], _0x2b33c7 = _0xb7c718['receivers'][0x0]['id'], _0x53661c = _0xb7c718[_0x352b7d(0x10e)], _0x2ec6cd = _0xb7c718[_0x352b7d(0x135)]; _0x2ec6cd && (_0x30eb7f = aes_decrypt(_0x30eb7f, chat_secret)); var _0x523a0d = chat_nickname === _0x265063?_0x352b7d(0xe2):''; _0x3c4205 += _0x352b7d(0x100) + _0x523a0d + '\x27>' + '[' + _0x53661c + _0x352b7d(0xff) + _0x2b33c7 + '\x20@' + _0x265063 + '>\x20' + _0x30eb7f + _0x352b7d(0x11b); }document[_0x352b7d(0x12d)]('hits')[_0x352b7d(0xf9)] = _0x3c4205; }function sendMessage(_0x4d52d3){var _0x33c4dc = _0x4eb267; if (!_0x4d52d3 || _0x4d52d3 === '')return; if (!chat_nickname || !chat_room || !chat_secret){showMessage(_0x33c4dc(0xe8), 'warning'); return; }var _0x440e4c = new Date(), _0x5b5bdc = ![]; chat_secret && (_0x5b5bdc = !![], _0x4d52d3 = aes_encrypt(_0x4d52d3, chat_secret)); var _0x35f7af = {'encrypted':_0x5b5bdc, 'sender':{'id':chat_nickname}, 'receivers':[{'id':chat_room}], 'received':![], 'created_iso8601':_0x440e4c[_0x33c4dc(0x116)](), 'type':_0x33c4dc(0x122), 'content':_0x4d52d3, 'created_epoch':_0x440e4c[_0x33c4dc(0x10f)]()}; post_data(jec_host + chat_mapping, JSON[_0x33c4dc(0x11f)](_0x35f7af), jec_user, jec_password, null); }jQuery(document)['ready'](function(){var _0x44c178 = _0x4eb267, _0x48feb0 = _0x44c178(0xef); jQuery(_0x48feb0)[_0x44c178(0x108)](function(_0x203b29){var _0x23cdd4 = _0x44c178; if (_0x203b29[_0x23cdd4(0x114)] === 0xd){_0x203b29[_0x23cdd4(0xf3)](); var _0x1439d1 = jQuery(_0x48feb0)[_0x23cdd4(0x107)](); return sendMessage(_0x1439d1), jQuery(_0x48feb0)[_0x23cdd4(0x107)](''), ![]; }}); });
+        </script>
+
+    </head>
+
+    <body>
+
+        <header class="container">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                <a class="navbar-brand" href="#">
+                    <img src="https://infodev.files.wordpress.com/2009/04/logoid.jpg" width="30" height="30" alt="">
+                </a>
+
+                <a class="navbar-brand" href="#">SlimIRC</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="./SlimChat.html">Home <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_credentials" href="#">Credentials</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link disabled" data-toggle="collapse" data-target="#collapse_index" href="#" onclick="showIndexes()">Rooms</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link disabled" data-toggle="collapse" data-target="#collapse_search" href="#" aria-expanded="false">Search</a>
+                        </li>
+                    </ul>
+                    <span class="navbar-text">
+                        <small>Click menus to toggle panels or perform operations</small>
+                    </span>
+                </div>
+            </nav>
+
+        </header>
+
+        <div class="container">
+
+            <div id="credentials" class="container">
+                <div id="collapse_credentials" class="container collapse">
+                    Welcome to SlimIRC. Setup the Credentials, you will be able to
+                    leave a message on the room and read the messages 
+                    that match with your <i>secret</i>.
+                    <p>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <tr>
+                                <td style="text-align: right">Nickname</td>
+                                <td><input type="text" id="conf_nickname"/></td>       
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">Room</td>
+                                <td><input type="text" id="conf_room"/></td>       
+                            </tr>
+                            <tr>
+                                <td style="text-align: right">Secret</td>
+                                <td><input type="password" id="conf_secret"/></td>                            
+                            </tr>
+                            <tr> 
+                                <td></td>
+                                <td>
+                                    <button type="submit" class="btn btn-credentials btn-info"
+                                            data-toggle="collapse" data-target="#collapse_credentials" 
+                                            onclick="saveCredentials(
+                                                            document.getElementById('conf_nickname').value,
+                                                            document.getElementById('conf_room').value,
+                                                            document.getElementById('conf_secret').value,
+                                                            );">Confirm Credentials</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="collapse_search" class="container collapse">
+                <label for="search">Search</label>      <input type="text" id="search"/>
+                <label for="fuzzy">Fuzzy</label>        <input type="checkbox" id="fuzzy"/>
+                <label for="limit">Limit</label>        <input type="text" id="limit" maxlength="4" size="4" placeholder="10"/>
+                <label for="field">Field Search</label> <input type="text" id="field" placeholder="title:Le Iene di Macondo"/>
+                <button type="submit" class="btn btn-light" onclick="doSearch(
+                                document.getElementById('search').value,
+                                document.getElementById('limit').value,
+                                document.getElementById('field').value,
+                                document.getElementById('fuzzy').checked
+                                );">Perform Search</button>
+            </div>
+
+            <div id="hits" class="container"></div>
+
+            <div id="send_message" class="container">
+                <div class="panel-footer">
+                    <div class="input-group">
+                        <input id="chat_input" type="text" class="form-control input-sm chat_input" placeholder="Write your message here...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-light" id="btn-chat" onclick="sendMessage(
+                                            document.getElementById('chat_input').value
+                                            );">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="notifications" class="container"></div>
+
+        <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col-md-8">
+                        SlimIRC - Enjoy good ol' times.
+                        <a href="https://github.com/artsakenos/SlimJec/blob/master/README.md" target="_blank">Read more</a>.
+                    </div>
+                    <div class="col-md-4">
+                        <small>Copyright &copy; InfoDev - Ver. 2020-10-25. </small>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
