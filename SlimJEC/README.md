@@ -23,6 +23,11 @@ SlimChat, a Slim Javascript Elasticsearch Based Chat
 Example of a simple cyphered end to end messenger exploiting SlimJEC.
 See https://artsakenos.github.io/SlimJEC/SlimChat.html as an example.
 
+SlimIRC, a Slim Javascript Elasticsearch Based Chat IRC style messenger
+=======================================================================
+I want improve it with some more features (now disabled).
+When you save your credentials you are show one link in the console log to share
+your room with credentials through e.g., QRCode.
 
 ISSUES
 ======
