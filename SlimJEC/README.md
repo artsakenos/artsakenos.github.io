@@ -18,16 +18,21 @@ It lets you:
 You can make a *static page become a blog*, combining SlimJEC with a ElasticSearch instance.
 See https://artsakenos.github.io/SlimJEC/SlimJEC.html as an example.
 
-SlimChat, a Slim Javascript Elasticsearch Based Chat
-====================================================
+SlimChat, a Slim JS/ES Based Chat
+=================================
 Example of a simple cyphered end to end messenger exploiting SlimJEC.
 See https://artsakenos.github.io/SlimJEC/SlimChat.html as an example.
 
-SlimIRC, a Slim Javascript Elasticsearch Based Chat IRC style messenger
-=======================================================================
+SlimIRC, a Standalone JS/ES IRC style messenger
+===============================================
 I want improve it with some more features (now disabled).
 When you save your credentials you are show one link in the console log to share
 your room with credentials through e.g., QRCode.
+
+I put there a free repository and this is a client side app: 
+Of course you can play with XHR, of course you can read the console, 
+of course you can hack the ES repository. You can also inject HTML code.
+Please use it just for good, educational, amusing purposes.
 
 ISSUES
 ======
