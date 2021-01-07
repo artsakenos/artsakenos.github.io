@@ -12,11 +12,7 @@ UltraMaven deploy can be found inside the IperApps extra folder.
 
 # SlimSuite
 
-[SlimJEC](SlimJEC/README.md) is a suite of light JS scripts for ElasticSearch Connection.
-[SlimChat](https://artsakenos.github.io/SlimJEC/SlimChat.html) 
-is a proof of concept messenger app built on top of SlimJEC
-with end to end encryption.
-And, SlimIRC. A nice little IRC style standalone tool.
+The [SlimSuite](SlimJEC/README.md) is a suite of light JS scripts for ElasticSearch Connection.
 
 
 # Api Docs

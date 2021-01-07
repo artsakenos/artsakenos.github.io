@@ -1,4 +1,14 @@
 
+SlimSuite
+=========
+A suite of light JS scripts for ElasticSearch Connection.
+
+You can play with some proof of concept tools: 
+* The [SlimJEC](https://artsakenos.github.io/SlimJEC/SlimJEC.html) - A basic ES client over JS
+* The [SlimChat](https://artsakenos.github.io/SlimJEC/SlimChat.html) - A simple chat
+* The [SlimIRC](https://artsakenos.github.io/SlimJEC/SlimIRC.html) - A completely standalone IRC Style messenger E2E encrypted.
+
+
 SlimJEC, a Slim Javascript Elasticsearch Client
 ===============================================
 Pure Javascript Client for really basic access to ES instances.
@@ -25,14 +35,16 @@ See https://artsakenos.github.io/SlimJEC/SlimChat.html as an example.
 
 SlimIRC, a Standalone JS/ES IRC style messenger
 ===============================================
-I want improve it with some more features (now disabled).
-When you save your credentials you are show one link in the console log to share
-your room with credentials through e.g., QRCode.
+Can be improved. Right now:
+* It is a completely standalone app. It means you can copy the HTML in your PC and it works
+* Communication is safe, it is encrypted before being sent
+* You can share the communication channel through a link or QR Code
+* You can inject HTML code. It is funny and you can't destroy anything. Just don't use it to be annoying.
 
-I put there a free repository and this is a client side app: 
+In fact, I put there a free repository and this is a client side app: 
 Of course you can play with XHR, of course you can read the console, 
 of course you can hack the ES repository. You can also inject HTML code.
-Please use it just for good, educational, amusing purposes.
+Please use it just for good, educational, or amusing purposes.
 
 ISSUES
 ======
