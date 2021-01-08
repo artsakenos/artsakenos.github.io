@@ -4,9 +4,9 @@ SlimSuite
 A suite of light JS scripts for ElasticSearch Connection.
 
 You can play with some proof of concept tools: 
-* The [SlimJEC](https://artsakenos.github.io/SlimJEC/SlimJEC.html) - A basic ES client over JS
-* The [SlimChat](https://artsakenos.github.io/SlimJEC/SlimChat.html) - A simple chat
-* The [SlimIRC](https://artsakenos.github.io/SlimJEC/SlimIRC.html) - A completely standalone IRC Style messenger E2E encrypted.
+* The [SlimJEC](https://artsakenos.github.io/SlimSuite/SlimJEC.html) - A basic ES client over JS
+* The [SlimChat](https://artsakenos.github.io/SlimSuite/SlimChat.html) - A simple chat
+* The [SlimIRC](https://artsakenos.github.io/SlimSuite/SlimIRC.html) - A portable IRC Style messenger E2E encrypted. See [Help](#slimirc-a-sportable-irc-style-messenger).
 
 
 SlimJEC, a Slim Javascript Elasticsearch Client
@@ -33,11 +33,12 @@ SlimChat, a Slim JS/ES Based Chat
 Example of a simple cyphered end to end messenger exploiting SlimJEC.
 See https://artsakenos.github.io/SlimJEC/SlimChat.html as an example.
 
-SlimIRC, a Standalone JS/ES IRC style messenger
-===============================================
+SlimIRC, a Portable IRC Style Messenger
+=======================================
 Can be improved. Right now:
-* It is a completely standalone app. It means you can copy the HTML in your PC and it works
-* Communication is safe, it is encrypted before being sent
+* It is a completely standalone app. It means you can copy the HTML in your PC and it works.
+    Note that Chrome doesn't allow local cookies. So credentials will not be persisted.
+* Communication is encrypted by your browser before being sent and stored
 * You can share the communication channel through a link or QR Code
 * You can inject HTML code. It is funny and you can't destroy anything. Just don't use it to be annoying.
 
@@ -46,10 +47,16 @@ Of course you can play with XHR, of course you can read the console,
 of course you can hack the ES repository. You can also inject HTML code.
 Please use it just for good, educational, or amusing purposes.
 
-ISSUES
-======
+## Commands
+* /help: Will open this page. Commands fields are separated by spaces, don't use them as characters for nicknames, etc.
+* /nick <nickname>: Changes your nickname to "nickname"
+* /join <room_name>: Joins the channel "room_name"
+* /secret <secret>: changes the secret key of the communication
+* /msg <nickname> <msg>: Send a private message to nickname.
+    Message is encrypted with the secret of the room.
+    Private Messages are shown in bold style.
+
+TODO
+====
 * This was a quick experiment, I didn't perform any extensive tests, feel free to open issues or pull requests.
-* Trailing '/' should be automatically removed
-* If you want to perform *Cross-origin resource sharing* you have to set up your browser (avoidable?)
-* Same if you want to be served by an HTTP ES instance on a HTTP website
-* Until the new version of TLS, secret is sent during the query: to save it in session.
+* Until the new version of TLS, some secrets could be sent within query parameters. I try to avoid that in most of the cases.
