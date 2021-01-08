@@ -7,7 +7,7 @@
 var jec_user = "es_user";
 var jec_password = "es_password";
 /**
- * The search endpoint, può includere l'indice, sempre senza il backslash finale.
+ * The search endpoint, can include the mapping. No ending backslash.
  * @type {String}
  */
 var jec_host = 'https://ghandalf-45544.infodev.wordpress.com';

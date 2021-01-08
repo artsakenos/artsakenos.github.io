@@ -68,38 +68,8 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
         query.bool.must.push(fs_match);
     }
 
-
-    var xmlHttp = new XMLHttpRequest();
-    if (jec_user) {
-        // xmlHttp.withCredentials = true;  // Per esplicitare la richiesta di credenziali?
-        var credentials = window.btoa(jec_user + ':' + jec_password); // Senza questo chiede le credential esplicitamente.
-        xmlHttp.open('POST', jec_host + "/_search", [true, jec_user, jec_password]);
-        xmlHttp.setRequestHeader("Authorization", "Basic " + credentials);
-    } else {
-        xmlHttp.open('POST', jec_host + "/_search", false); // Senza credenziali
-    }
-    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-
-    xmlHttp.onload = function (event) {
-        if (xmlHttp.readyState === 4) {
-            if (xmlHttp.status === 200) {
-                var response = JSON.parse(xmlHttp.responseText);
-                showHits(response);
-            } else {
-                showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + jec_host, 'warning');
-            }
-        }
-    };
-    xmlHttp.onerror = function (event) {
-        showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + jec_host, 'warning');
-    };
-
-    try {
-        console.log(JSON.stringify(body));
-        xmlHttp.send(JSON.stringify(body));
-    } catch (domexception) {
-        showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
-    }
+    post_data(jec_host + "/_search", JSON.stringify(body), jec_user, jec_password, showHits);
+    
 }
 
 function saveCredentials(url, user, password) {
@@ -183,31 +153,3 @@ function showIndexes() {
         url: jec_host + '/_cat/indices?v'
     });
 }
-
-function postData(mapping, body) {
-    var postUrl = jec_host + mapping;
-
-    // Here i'm using Ajax instead XML HTTP request, this leads to CORS error in some repositories.
-    $.ajax({
-        xhrFields: {
-            withCredentials: true
-        },
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(jec_user + ':' + jec_password));
-        },
-        success: function (data) {
-            showMessage("Item has been succesfully posted.", "success");
-            document.getElementById('hits').innerHTML = toJson(data);
-        },
-        error: function (data) {
-            showMessage("There was an error posting the item (" + postUrl + ").", "danger");
-            document.getElementById('hits').innerHTML = toJson(data);
-        },
-        type: "POST",
-        data: body,
-        contentType: "application/json; charset=utf-8",
-        url: postUrl
-    });
-
-}
-

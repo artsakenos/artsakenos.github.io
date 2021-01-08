@@ -116,37 +116,7 @@ function getMessages(limit) {
         }
     };
 
-    var xmlHttp = new XMLHttpRequest();
-    if (jec_user) {
-        // xmlHttp.withCredentials = true;  // Per esplicitare la richiesta di credenziali?
-        var credentials = window.btoa(jec_user + ':' + jec_password); // Senza questo chiede le credential esplicitamente.
-        xmlHttp.open('POST', jec_host + "/_search", [true, jec_user, jec_password]);
-        xmlHttp.setRequestHeader("Authorization", "Basic " + credentials);
-    } else {
-        xmlHttp.open('POST', jec_host + "/_search", false); // Senza credenziali
-    }
-    xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-
-    xmlHttp.onload = function (event) {
-        if (xmlHttp.readyState === 4) {
-            if (xmlHttp.status === 200) {
-                var response = JSON.parse(xmlHttp.responseText);
-                showChatDiscussion(response);
-            } else {
-                showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + jec_host, 'warning');
-            }
-        }
-    };
-    xmlHttp.onerror = function (event) {
-        showMessage('Connection Error (' + xmlHttp.statusText + '), check the URL ' + jec_host, 'warning');
-    };
-
-    try {
-        // console.log(JSON.stringify(body));
-        xmlHttp.send(JSON.stringify(body));
-    } catch (domexception) {
-        showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
-    }
+    post_data(jec_host + "/_search", JSON.stringify(body), jec_user, jec_password, showChatDiscussion);
 
 }
 
@@ -215,7 +185,7 @@ function sendMessage(content) {
         "created_epoch": date.getTime()
     };
 
-    postData(chat_mapping, JSON.stringify(body));
+    post_data(jec_host + chat_mapping, JSON.stringify(body), jec_user, jec_password, null);
 }
 
 function saveCredentials(url, user, password, sender, receiver, secret, mapping) {

@@ -61,11 +61,11 @@ function toJson(dataObject) {
 /**
  * An HTTP Post request.
  * 
- * @param {type} url The URL
- * @param {type} json_body The body, e.g., JSON.stringify(body)
- * @param {type} user The user (null if no credentials)
- * @param {type} password the password if any
- * @param {type} post_callback A callback with a parameter to handle the response, e.g.,
+ * @param {string} url The URL
+ * @param {string} json_body The body, e.g., JSON.stringify(body)
+ * @param {string} user The user (null if no credentials)
+ * @param {string} password the password if any
+ * @param {function} post_callback A callback with a parameter to handle the response, e.g.,
  * <pre>
  *  inline: function (response) { console.log(response); } 
  *  out:    function handle_me(response) { console.log(response); }
@@ -104,6 +104,39 @@ function post_data(url, json_body, user, password, post_callback) { // json_body
     } catch (domexception) {
         showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
     }
+}
+
+/**
+ * Note that Ajax instead of XML HTTP request can lead to CORS error in some repositories.
+ 
+ * @param {string} url The URL
+ * @param {string} json_body The body, e.g., JSON.stringify(body)
+ * @param {string} user The user (null if no credentials)
+ * @param {string} password the password if any
+ */
+function post_data_ajax(url, json_body, user, password) {
+
+    $.ajax({
+        xhrFields: {
+            withCredentials: true
+        },
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Basic ' + btoa(user + ':' + password));
+        },
+        success: function (data) {
+            showMessage("Item has been succesfully posted.", "success");
+            document.getElementById('hits').innerHTML = toJson(data);
+        },
+        error: function (data) {
+            showMessage("There was an error posting the item (" + url + ").", "danger");
+            document.getElementById('hits').innerHTML = toJson(data);
+        },
+        type: "POST",
+        data: json_body,
+        contentType: "application/json; charset=utf-8",
+        url: url
+    });
+
 }
 
 // -----------------------------------------------------------------------------

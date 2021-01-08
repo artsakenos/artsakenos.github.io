@@ -49,10 +49,10 @@ Please use it just for good, educational, or amusing purposes.
 
 ## Commands
 * /help: Will open this page. Commands fields are separated by spaces, don't use them as characters for nicknames, etc.
-* /nick <nickname>: Changes your nickname to "nickname"
-* /join <room_name>: Joins the channel "room_name"
-* /secret <secret>: changes the secret key of the communication
-* /msg <nickname> <msg>: Send a private message to nickname.
+* /nick {nickname}: Changes your nickname to "nickname"
+* /join {room_name}: Joins the channel "room_name"
+* /secret {secret}: changes the secret key of the communication
+* /msg {nickname} {msg}: Send a private message to nickname.
     Message is encrypted with the secret of the room.
     Private Messages are shown in bold style.
 
