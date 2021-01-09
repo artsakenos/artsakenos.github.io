@@ -30,10 +30,22 @@ function aes_encrypt(message = '', key = '') {
     return message.toString();
 }
 
+/**
+ * Decrypt a message.
+ * 
+ * @param {string} message The Message
+ * @param {string} key The Key
+ * @returns {string} The decrypted message
+ */
 function aes_decrypt(message = '', key = '') {
     var code = CryptoJS.AES.decrypt(message, key);
-    var decryptedMessage = code.toString(CryptoJS.enc.Utf8);
-    return decryptedMessage;
+    try {
+        var decryptedMessage = code.toString(CryptoJS.enc.Utf8);
+        return decryptedMessage;
+    } catch (err) {
+        // console.log("aes_decrypt() Error: " + err.message);
+        return "(<i>encrypted with another key</i>)";
+}
 }
 
 /**

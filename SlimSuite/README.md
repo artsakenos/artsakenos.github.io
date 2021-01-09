@@ -8,6 +8,8 @@ You can play with some proof of concept tools:
 * The [SlimChat](https://artsakenos.github.io/SlimSuite/SlimChat.html) - A simple chat
 * The [SlimIRC](https://artsakenos.github.io/SlimSuite/SlimIRC.html) - A portable IRC Style messenger E2E encrypted. See [Help](#slimirc-a-sportable-irc-style-messenger).
 
+This are experiments, I didn't perform any extensive tests, feel free to open issues or pull requests.
+Note that until the new TLS, some secrets could be sent within query parameters. I try to avoid it in most of the cases.
 
 SlimJEC, a Slim Javascript Elasticsearch Client
 ===============================================
@@ -28,10 +30,12 @@ It lets you:
 You can make a *static page become a blog*, combining SlimJEC with a ElasticSearch instance.
 See https://artsakenos.github.io/SlimJEC/SlimJEC.html as an example.
 
+
 SlimChat, a Slim JS/ES Based Chat
 =================================
 Example of a simple cyphered end to end messenger exploiting SlimJEC.
 See https://artsakenos.github.io/SlimJEC/SlimChat.html as an example.
+
 
 SlimIRC, a Portable IRC Style Messenger
 =======================================
@@ -55,8 +59,10 @@ Please use it just for good, educational, or amusing purposes.
 * /msg {nickname} {msg}: Send a private message to nickname.
     Message is encrypted with the secret of the room.
     Private Messages are shown in bold style.
+* /call {room_name}: Open a videocall with the name "room_name" (Right now exploiting [AppRTC](https://appr.tc/)). 
+
 
 TODO
 ====
-* This was a quick experiment, I didn't perform any extensive tests, feel free to open issues or pull requests.
-* Until the new version of TLS, some secrets could be sent within query parameters. I try to avoid that in most of the cases.
+* Add some [Push Notifications](https://medium.com/izettle-engineering/beginners-guide-to-web-push-notifications-using-service-workers-cb3474a17679)
+* Add [WebRTC Calls](https://webrtc.org/getting-started/peer-connections), without [Signaling Server](https://github.com/lesmana/webrtc-without-signaling-server), or with [Scalendrone](https://github.com/ScaleDrone/webrtc).
