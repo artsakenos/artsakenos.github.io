@@ -2,7 +2,7 @@
  Created on : 25 ott 2020, 12:08:05
  Author     : artsakenos
  */
-/* global jec_user, jec_password, jec_host, urlParams, chat_mapping, chat_sender, chat_receiver, chat_secret */
+/* global jec_user, jec_password, jec_host, ujs_url_params, chat_mapping, chat_sender, chat_receiver, chat_secret */
 
 window.onload = function () {
 
@@ -15,16 +15,16 @@ window.onload = function () {
     $('#conf_mapping').val(getCookie("chat_mapping"));
     $('#conf_secret').val(getCookie("chat_secret"));
 
-    if (Object.keys(urlParams).length >= 4) {
+    if (Object.keys(ujs_url_params).length >= 4) {
         // Get values from query params and save them! This allow QR Code setups.
-        jec_host = urlParams["host"];
-        jec_user = urlParams["user"];
-        jec_password = urlParams["password"];
+        jec_host = ujs_url_params["host"];
+        jec_user = ujs_url_params["user"];
+        jec_password = ujs_url_params["password"];
 
-        chat_sender = urlParams["sender"];
-        chat_receiver = urlParams["receiver"];
-        chat_secret = urlParams["secret"];
-        chat_mapping = urlParams["mapping"];
+        chat_sender = ujs_url_params["sender"];
+        chat_receiver = ujs_url_params["receiver"];
+        chat_secret = ujs_url_params["secret"];
+        chat_mapping = ujs_url_params["mapping"];
 
         $('#conf_url').val(jec_host);
         $('#conf_user').val(jec_user);
@@ -47,7 +47,6 @@ window.onload = function () {
     $('#conf_sender_current').html('<small>Currently: <i>' + chat_sender + '</i></small>');
     $('#conf_receiver_current').html('<small>Currently: <i>' + chat_receiver + '</i></small>');
     $('#conf_mapping_current').html('<small>Currently: <i>' + chat_mapping + '</i></small>');
-
 
     if (chat_sender && chat_receiver && chat_secret) {
         // getMessages(10);
@@ -116,8 +115,7 @@ function getMessages(limit) {
         }
     };
 
-    post_data(jec_host + "/_search", JSON.stringify(body), jec_user, jec_password, showChatDiscussion);
-
+    http_post(jec_host + "/_search", JSON.stringify(body), jec_user, jec_password, showChatDiscussion);
 }
 
 /**
@@ -185,7 +183,7 @@ function sendMessage(content) {
         "created_epoch": date.getTime()
     };
 
-    post_data(jec_host + chat_mapping, JSON.stringify(body), jec_user, jec_password, null);
+    http_post(jec_host + chat_mapping, JSON.stringify(body), jec_user, jec_password, null);
 }
 
 function saveCredentials(url, user, password, sender, receiver, secret, mapping) {

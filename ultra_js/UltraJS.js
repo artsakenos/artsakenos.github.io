@@ -1,5 +1,6 @@
 /* 
- UltraJS: a suite of general purpose function to augment JavaScript
+ UltraJS: a suite of general purpose function to augment JavaScript.
+ Minify it with https://codebeautify.org/minify-js
  
  Created on : 25 ott 2019, 12:08:05
  Author     : artsakenos
@@ -8,9 +9,9 @@
 /* global CryptoJS */
 
 /**
- * Load parameters in global urlParams. Access them with urlParams["key"];
+ * Load parameters in global ujs_url_params. Access them with ujs_url_params["key"];
  */
-var urlParams;
+var ujs_url_params;
 (window.onpopstate = function () {
     var match,
             pl = /\+/g, // Regex for replacing addition symbol with a space
@@ -20,9 +21,9 @@ var urlParams;
             },
             query = window.location.search.substring(1);
 
-    urlParams = {};
+    ujs_url_params = {};
     while (match = search.exec(query))
-        urlParams[decode(match[1])] = decode(match[2]);
+        ujs_url_params[decode(match[1])] = decode(match[2]);
 })();
 
 function aes_encrypt(message = '', key = '') {
@@ -53,9 +54,7 @@ function aes_decrypt(message = '', key = '') {
  * 
  * @param {type} message
  * @param {type} type The bootstrap button type: success, warning, info, danger, ..., 
- * https://getbootstrap.com/docs/4.0/components/buttons/
- * 
- * @return {undefined}
+ * see https://getbootstrap.com/docs/4.0/components/buttons/
  */
 function showMessage(message, type) {
     $("#notifications").fadeIn();
@@ -66,12 +65,12 @@ function showMessage(message, type) {
     }, 10000);
 }
 
-function toJson(dataObject) {
+function toJsonPre(dataObject) {
     return '<pre id="json">' + JSON.stringify(dataObject, null, 2) + '</pre>';
 }
 
 /**
- * An HTTP Post request.
+ * An HTTP POST request.
  * 
  * @param {string} url The URL
  * @param {string} json_body The body, e.g., JSON.stringify(body)
@@ -84,15 +83,33 @@ function toJson(dataObject) {
  *  null:   null.
  * </pre>
  */
-function post_data(url, json_body, user, password, post_callback) { // json_body è Stringifyed
+function http_post(url, json_body, user, password, post_callback) {
+    http_query(url, json_body, user, password, post_callback, 'POST');
+}
+
+/**
+ * An HTTP GET request.
+ * 
+ * @param {string} url The URL
+ * @param {string} json_body The body, e.g., JSON.stringify(body)
+ * @param {string} user The user (null if no credentials)
+ * @param {string} password the password if any
+ * @param {function} post_callback A callback with a parameter to handle the response, e.g.,
+ * @param {string} method e.g., 'POST', 'GET', ...
+ * <pre>
+ *  inline: function (response) { console.log(response); } 
+ *  out:    function handle_me(response) { console.log(response); }
+ *  null:   null.
+ * </pre>
+ */
+function http_query(url, json_body, user, password, post_callback, method) {
     var xmlHttp = new XMLHttpRequest();
     if (user) {
-        // xmlHttp.withCredentials = true;  // Per esplicitare la richiesta di credenziali?
         var credentials = window.btoa(user + ':' + password); // Senza questo chiede le credential esplicitamente.
-        xmlHttp.open('POST', url, [true, user, password]);
+        xmlHttp.open(method, url, [true, user, password]);
         xmlHttp.setRequestHeader("Authorization", "Basic " + credentials);
     } else {
-        xmlHttp.open('POST', url, false); // Senza credenziali
+        xmlHttp.open(method, url, false); // Senza credenziali
     }
     xmlHttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
 
@@ -114,7 +131,7 @@ function post_data(url, json_body, user, password, post_callback) { // json_body
     try {
         xmlHttp.send(json_body);
     } catch (domexception) {
-        showMessage("Attenzione: disattivare il CORS, utilizzare un repository con credentials, o alloware mixed content (se da https).", 'warning');
+        showMessage("Error sending POST request. CORS issues? Use credentials or allow mixed content from https.", 'warning');
     }
 }
 
@@ -137,11 +154,11 @@ function post_data_ajax(url, json_body, user, password) {
         },
         success: function (data) {
             showMessage("Item has been succesfully posted.", "success");
-            document.getElementById('hits').innerHTML = toJson(data);
+            document.getElementById('hits').innerHTML = toJsonPre(data);
         },
         error: function (data) {
             showMessage("There was an error posting the item (" + url + ").", "danger");
-            document.getElementById('hits').innerHTML = toJson(data);
+            document.getElementById('hits').innerHTML = toJsonPre(data);
         },
         type: "POST",
         data: json_body,
@@ -150,6 +167,8 @@ function post_data_ajax(url, json_body, user, password) {
     });
 
 }
+
+
 
 // -----------------------------------------------------------------------------
 // ---------    Cookies

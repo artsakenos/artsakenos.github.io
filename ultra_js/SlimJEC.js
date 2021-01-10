@@ -68,8 +68,7 @@ function doSearch(search, limit, fieldsearch, fuzzy) {
         query.bool.must.push(fs_match);
     }
 
-    post_data(jec_host + "/_search", JSON.stringify(body), jec_user, jec_password, showHits);
-    
+    http_post(jec_host + "/_search", JSON.stringify(body), jec_user, jec_password, showHits);
 }
 
 function saveCredentials(url, user, password) {
@@ -117,7 +116,7 @@ function showHits(response) {
 
                 var html_value = hit[field];
                 if (typeof html_value === "object") {
-                    html_value = toJson(html_value);
+                    html_value = toJsonPre(html_value);
                 }
 
                 html_output += `<div class="jec_field_${field} jec_field_wrapper">
