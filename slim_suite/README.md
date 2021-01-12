@@ -4,9 +4,9 @@ SlimSuite
 A suite of light JS scripts for ElasticSearch Connection.
 
 You can play with some proof of concept tools: 
-* The [SlimJEC](https://artsakenos.github.io/SlimSuite/SlimJEC.html) - A basic ES client over JS
-* The [SlimChat](https://artsakenos.github.io/SlimSuite/SlimChat.html) - A simple chat
-* The [SlimIRC](https://artsakenos.github.io/SlimSuite/SlimIRC.html) - A portable IRC Style messenger E2E encrypted. See [Help](#slimirc-a-sportable-irc-style-messenger).
+* The [SlimJEC](https://artsakenos.github.io/slim_suite/SlimJEC.html) - A basic ES client over JS
+* The [SlimChat](https://artsakenos.github.io/slim_suite/SlimChat.html) - A simple chat
+* The [SlimIRC](https://artsakenos.github.io/slim_suite/SlimIRC.html) - A portable IRC Style messenger E2E encrypted. See [Help](#slimirc-a-sportable-irc-style-messenger).
 
 This are experiments, I didn't perform any extensive tests, feel free to open issues or pull requests.
 Note that until the new TLS, some secrets could be sent within query parameters. I try to avoid it in most of the cases.
@@ -32,14 +32,14 @@ It lets you:
 SlimChat, a Slim JS/ES Based Chat
 =================================
 Example of a simple cyphered end to end messenger exploiting SlimJEC.
-See the [SlimChat](https://artsakenos.github.io/SlimSuite/SlimChat.html) instance.
+See the [SlimChat](https://artsakenos.github.io/slim_suite/SlimChat.html) instance.
 
 
 SlimIRC, a Portable IRC Style Messenger
 =======================================
 SlimIRC is just another experiment.
 * It is a completely standalone HTML page. It means you can copy it in your PC and it works.
-    Note that Chrome doesn't allow local cookies, credentials will not be persisted in local.
+    Note that Chrome does not allow local cookies, credentials will not be persisted in local.
 * Communication is encrypted by your browser before being sent and stored
 * You can share the communication channel through a link or QR Code
 * Yes, you can inject HTML code. It is funny and you can't destroy anything. Just don't be annoying.

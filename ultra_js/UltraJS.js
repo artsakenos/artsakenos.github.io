@@ -212,3 +212,18 @@ function getCookie(cname) {
 function eraseCookie(name) {
     setCookie(name, "", -1);
 }
+
+// -----------------------------------------------------------------------------
+// ----------   Utilities
+// -----------------------------------------------------------------------------
+
+/**
+ * Replaces a text on the whole document.
+ * 
+ * @param {type} placeholder e.g., {{placeholder}}
+ * @param {type} replacement The replacement text
+ */
+function replaceholder(placeholder, replacement) {
+    document.body.innerHTML = document.body.innerHTML.replaceAll(placeholder, replacement);
+}
+

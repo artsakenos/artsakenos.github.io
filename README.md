@@ -17,7 +17,7 @@ Some general purpose JavaScripts.
 
 # SlimSuite
 
-The [SlimSuite](SlimSuite/README.md) is a suite of light JS scripts for ElasticSearch Connection.
+The [SlimSuite](slim_suite/README.md) is a suite of light JS scripts for ElasticSearch Connection.
 
 
 # Api Docs
