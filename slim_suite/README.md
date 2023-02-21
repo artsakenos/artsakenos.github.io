@@ -44,7 +44,7 @@ SlimIRC is just another experiment.
 * You can share the communication channel through a link or QR Code
 * Yes, you can inject HTML code. It is funny and you can't destroy anything. Just don't be annoying.
 
-I put there a free repository and this is a client side app: 
+I published a [free to use Slim IRC](https://slimirc.netlify.app/) and this is a client side app:
 Of course you can play with XHR, of course you can read the console, 
 of course you can hack the ES repository.
 Please use it just for good, educational purposes. Have fun.
