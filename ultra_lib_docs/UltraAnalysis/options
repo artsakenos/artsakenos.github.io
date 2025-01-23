@@ -1,0 +1,24 @@
+-classpath
+'C:/Users/andre/.m2/repository/tk/artsakenos/IperUnits/1.0-SNAPSHOT/IperUnits-1.0-SNAPSHOT.jar;C:/Users/andre/.m2/repository/org/xerial/sqlite-jdbc/3.21.0/sqlite-jdbc-3.21.0.jar;C:/Users/andre/.m2/repository/tk/artsakenos/UltraCMS/1.0-SNAPSHOT/UltraCMS-1.0-SNAPSHOT.jar;C:/Users/andre/.m2/repository/org/nanohttpd/nanohttpd/2.3.1/nanohttpd-2.3.1.jar;C:/Users/andre/.m2/repository/org/jsoup/jsoup/1.11.3/jsoup-1.11.3.jar;C:/Users/andre/.m2/repository/net/dongliu/apk-parser/2.5.3/apk-parser-2.5.3.jar;C:/Users/andre/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.10.1/jackson-core-2.10.1.jar;C:/Users/andre/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.10.1/jackson-databind-2.10.1.jar;C:/Users/andre/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.10.1/jackson-annotations-2.10.1.jar;C:/Users/andre/.m2/repository/fastily/jwiki/1.7.0/jwiki-1.7.0.jar;C:/Users/andre/.m2/repository/com/google/code/gson/gson/2.8.5/gson-2.8.5.jar;C:/Users/andre/.m2/repository/com/squareup/okhttp3/okhttp/3.11.0/okhttp-3.11.0.jar;C:/Users/andre/.m2/repository/com/squareup/okio/okio/1.14.0/okio-1.14.0.jar;C:/Users/andre/.m2/repository/org/facebook4j/facebook4j-core/2.4.13/facebook4j-core-2.4.13.jar;C:/Users/andre/.m2/repository/net/dean/jraw/JRAW/1.1.0/JRAW-1.1.0.jar;C:/Users/andre/.m2/repository/com/squareup/moshi/moshi/1.6.0/moshi-1.6.0.jar;C:/Users/andre/.m2/repository/org/jetbrains/kotlin/kotlin-stdlib/1.2.41/kotlin-stdlib-1.2.41.jar;C:/Users/andre/.m2/repository/org/jetbrains/annotations/13.0/annotations-13.0.jar;C:/Users/andre/.m2/repository/com/github/ptnplanet/Java-Naive-Bayes-Classifier/1.0.7/Java-Naive-Bayes-Classifier-1.0.7.jar;C:/Users/andre/.m2/repository/com/github/marcoacierno/pastebin-java-api/0.2.1/pastebin-java-api-0.2.1.jar;C:/Users/andre/.m2/repository/com/intellij/annotations/12.0/annotations-12.0.jar;C:/Users/andre/.m2/repository/org/twitter4j/twitter4j-core/4.0.7/twitter4j-core-4.0.7.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'C:/Users/andre/Documents/NetBeansProjects/UltraAnalysis/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2020. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'C:/Users/andre/Documents/NetBeansProjects/UltraAnalysis/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'UltraAnalysis 1.0-SNAPSHOT API'
+-linkoffline
+'https://docs.oracle.com/en/java/javase/11/docs/api' 'C:/Users/andre/Documents/NetBeansProjects/UltraAnalysis/target/javadoc-bundle-options'
+-use
+-version
+-windowtitle
+'UltraAnalysis 1.0-SNAPSHOT API'

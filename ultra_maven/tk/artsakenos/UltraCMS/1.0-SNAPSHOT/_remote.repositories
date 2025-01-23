@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Sun May 17 14:52:10 CST 2020
+UltraCMS-1.0-SNAPSHOT.jar>=
+UltraCMS-1.0-SNAPSHOT.pom>=
+UltraCMS-1.0-SNAPSHOT.pom>ultra-mvn-repo=
+UltraCMS-1.0-SNAPSHOT.jar>ultra-mvn-repo=

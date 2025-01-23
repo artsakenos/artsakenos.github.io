@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>tk.artsakenos</groupId>
+    <artifactId>UltraAnalysis</artifactId>
+    <name>UltraAnalysis</name>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    
+    
+    <build>
+        <plugins>
+           
+        </plugins>
+    </build>
+    
+    <repositories>
+        <repository>
+            <id>jcenter</id>
+            <url>https://jcenter.bintray.com/</url>
+        </repository>
+        <repository>
+            <!-- NaiveBayesClassifier -->
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories> 
+
+    
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc -->
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>tk.artsakenos</groupId>
+            <artifactId>IperUnits</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jsoup</groupId>
+            <artifactId>jsoup</artifactId>
+            <version>1.11.3</version>
+        </dependency>        
+        <!-- Ultra Social -->
+        
+        <dependency>
+            <groupId>fastily</groupId>
+            <artifactId>jwiki</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.facebook4j</groupId>
+            <artifactId>facebook4j-core</artifactId>
+            <version>2.4.13</version>
+        </dependency>
+        
+        <!-- Direttamente utilizzato nel PosTagger -->
+        <dependency>
+            <groupId>net.dean.jraw</groupId>
+            <artifactId>JRAW</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+
+        <!-- Per il NaiveBayes  -->       
+        <dependency>
+            <groupId>com.github.ptnplanet</groupId>
+            <artifactId>Java-Naive-Bayes-Classifier</artifactId>
+            <version>1.0.7</version>
+        </dependency>
+        <!--  -->
+
+        <!-- PasteBin  -->       
+        <dependency>
+            <groupId>com.github.marcoacierno</groupId>
+            <artifactId>pastebin-java-api</artifactId>
+            <version>0.2.1</version>
+        </dependency>
+        
+        <!-- Twitter -->
+        <dependency>
+            <groupId>org.twitter4j</groupId>
+            <artifactId>twitter4j-core</artifactId>
+            <version>4.0.7</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.3</version>
+        </dependency>
+
+                
+    </dependencies>
+</project>

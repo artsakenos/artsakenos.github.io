@@ -1,0 +1,6 @@
+#NOTE: This is an Aether internal implementation file, its format can be changed without prior notice.
+#Thu Aug 13 16:11:15 CST 2020
+UltraAnalysis-1.0-SNAPSHOT.jar>=
+UltraAnalysis-1.0-SNAPSHOT.pom>=
+UltraAnalysis-1.0-SNAPSHOT.pom>ultra-mvn-repo=
+UltraAnalysis-1.0-SNAPSHOT.jar>ultra-mvn-repo=
