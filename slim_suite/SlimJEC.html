@@ -1,160 +1,136 @@
 <!DOCTYPE html>
-<!--
-Slim Javascript ElasticSearch Client.
-
-Created on : 25 ott 2019, 12:08:05
-Author     : artsakenos
-Version    : 2019.10.25
--->
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- JQuery e Bootstrap -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- External Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.11.6/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
 
-        <title>SlimJEC: Ultra Slim Javascript ElasticSearch Client</title>
-        <link rel="stylesheet" href="./SlimJEC.css">
+    <title>SlimJEC: Lightweight JavaScript ElasticSearch Client</title>
+    <script src="./ultra_js/UltraJS.js"></script>
+    <script src="./ultra_js/SlimJEC.js"></script>
 
-        <!-- Replace your config file here -->
-        <script type="application/javascript" src="./config/SlimJEC_Config_Sitedo.js"></script>
+    <style>
+        body {
+            padding: 20px;
+        }
 
-        <script type="application/javascript" src="../ultra_js/UltraJS.js"></script>
-        <script type="application/javascript" src="../ultra_js/SlimJEC.js"></script>      
+        .jec-field-label {
+            color: #007BFF;
+            font-weight: bold;
+        }
 
-    </head>
+        .container.collapse {
+            padding: 20px;
+            border: 1px solid #deb887;
+            margin-bottom: 10px;
+            border-radius: 10px;
+            background-color: #fefaf0;
+        }
 
-    <body>
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            color: white;
+            text-align: center;
+            background-color: #343a40;
+        }
+    </style>
+</head>
 
-        <header class="container">
-
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
-                <a class="navbar-brand" href="#">
-                    <img src="https://infodev.files.wordpress.com/2009/04/logoid.jpg" width="30" height="30" alt="">
-                </a>
-
-                <a class="navbar-brand" href="#">SlimJEC</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mr-auto">
-
-                        <li class="nav-item active">
-                            <a class="nav-link" href="./SlimJEC.html">Home <span class="sr-only">(current)</span></a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_credentials" href="#">Setup Credentials</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_index" href="#" onclick="showIndexes()">Show Indexes</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_search" href="#" aria-expanded="true">Search Panel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" data-toggle="collapse" data-target="#collapse_post" href="#">Post Data</a>
-                        </li>
-                    </ul>
-                    <span class="navbar-text">
-                        <small>Click menus to toggle panels or perform operations</small>
-                    </span>
-                </div>
-            </nav>
-
-        </header>
-
-        <div class="container">
-
-            <div id="credentials" class="container">
-                <div id="collapse_credentials" class="container collapse">
-                    The credentials are loaded importing a file like this: <a href="./SlimJEC_Config.js" target="_blank">SlimJEC_Config.js</a>.
-                    If you prefer, or you don't have access, set them here as well.<p>
-                    <div class="table-responsive">
-                        <table class="table">
-                            <tr>
-                                <td style="text-align: right">ElasticSearch URL</td>
-                                <td><input type="text" placeholder="http(s)://example.org" id="conf_url"/></td>
-                                <td id="conf_url_current"></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: right">UserName <small>(if needed)</small></td>
-                                <td><input type="text" id="conf_user"/></td>       
-                                <td id="conf_user_current"></td>
-                            </tr>
-                            <tr>
-                                <td style="text-align: right">Password</td>
-                                <td><input type="password" id="conf_password"/></td>                            
-                                <td>
-                                    <button type="submit" class="btn btn-credentials btn-info"
-                                            data-toggle="collapse" data-target="#collapse_credentials" 
-                                            onclick="saveCredentials(
-                                                            document.getElementById('conf_url').value,
-                                                            document.getElementById('conf_user').value,
-                                                            document.getElementById('conf_password').value
-                                                            );">Confirm Credentials</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div id="collapse_search" class="container collapse show">
-                <label for="search">Search</label>      <input type="text" id="search"/>
-                <label for="fuzzy">Fuzzy</label>        <input type="checkbox" id="fuzzy"/>
-                <label for="limit">Limit</label>        <input type="text" id="limit" maxlength="4" size="4" placeholder="10"/>
-                <label for="field">Field Search</label> <input type="text" id="field" placeholder="title:Le Iene di Macondo"/>
-                <button type="submit" class="btn btn-light" onclick="doSearch(
-                                document.getElementById('search').value,
-                                document.getElementById('limit').value,
-                                document.getElementById('field').value,
-                                document.getElementById('fuzzy').checked
-                                );">Perform Search</button>
-            </div>
-
-            <div id="collapse_post" class="container collapse">
-                <div class="row">
-                    <div class="col-md-6">
-                        <textarea id="postdata" cols="50" rows="4" placeholder='{"title":"Le Iene di Macondo"}'></textarea>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" id="mapping" placeholder="/index/type"/>
-                        <label for="mapping">Mapping <small>(can include type and {id})</small></label><br>
-                        <button type="submit" class="btn btn-light" onclick="postData(
-                                        document.getElementById('mapping').value,
-                                        document.getElementById('postdata').value
-                                        );">Post the object in its JSON representation</button></label>
-                    </div>
-                </div>
-            </div>
-
-            <div id="notifications" class="container"></div>
-            <div id="hits" class="container"></div>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">
+        <a class="navbar-brand" href="#">
+            <img src="https://infodev.files.wordpress.com/2009/04/logoid.jpg" width="30" height="30" alt="">
+            SlimJEC
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapseCredentials"
+                        href="#">Setup Credentials</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapseIndex"
+                        href="#" onclick="showIndexes()">Show Indexes</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapseSearch"
+                        href="#">Search Panel</a></li>
+                <li class="nav-item"><a class="nav-link" data-bs-toggle="collapse" data-bs-target="#collapsePost"
+                        href="#">Post Data</a></li>
+            </ul>
+            <span class="navbar-text ms-auto">Click menus to toggle panels or perform operations</span>
         </div>
+    </nav>
 
-        <footer id="sticky-footer" class="py-4 bg-dark text-white-50">
-            <div class="container text-center">
-                <div class="row">
-                    <div class="col-md-8">
-                        SlimJEC - a feather light JavaScript ElasticSearch Client.
-                        <a href="https://github.com/artsakenos/SlimJec/blob/master/README.md" target="_blank">Read more</a>.
-                    </div>
-                    <div class="col-md-4">
-                        <small>Copyright &copy; InfoDev - Ver. 2019-10-25. </small>
-                    </div>
+    <!-- Credentials Panel -->
+    <div id="collapseCredentials" class="container collapse">
+        <p>Set your ElasticSearch credentials:</p>
+        <ul>
+            <li>You can set the credential variables <i>jec_host, jec_user, jec_password</i></li>
+            <li>import them including a <i>SlimJEC_Config.js</i> </li>
+            <li>manually compile this form as well, to set them up at any moment.</li>
+        </ul>
+        <div class="mb-3">
+            <input type="text" class="form-control mb-2" placeholder="ElasticSearch URL (e.g., http(s)://example.org)"
+                id="confUrl">
+            <input type="text" class="form-control mb-2" placeholder="Username (if needed)" id="confUser">
+            <input type="password" class="form-control mb-2" placeholder="Password" id="confPassword">
+            <button class="btn btn-primary"
+                onclick="saveCredentials(confUrl.value, confUser.value, confPassword.value)">Save Credentials</button>
+        </div>
+    </div>
+
+    <!-- Search Panel -->
+    <div id="collapseSearch" class="container collapse show">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Search term" id="search">
+            <input type="text" class="form-control" placeholder="Field (e.g., title:Macondo)" id="field">
+            <input type="number" class="form-control" placeholder="Limit" id="limit" max="100" value="10">
+            <div class="input-group-text">
+                <input type="checkbox" id="fuzzy" class="form-check-input me-2"> Fuzzy
+            </div>
+            <button class="btn btn-primary"
+                onclick="doSearch(search.value, limit.value, field.value, fuzzy.checked)">Search</button>
+        </div>
+    </div>
+
+    <!-- Post Data Panel -->
+    <div id="collapsePost" class="container collapse">
+        <div class="mb-3">
+            <textarea id="postData" class="form-control mb-2" rows="4"
+                placeholder='{"title":"Le Iene di Macondo"}'></textarea>
+            <input type="text" class="form-control mb-2" placeholder="/index/type" id="mapping">
+            <button class="btn btn-success" onclick="postData(mapping.value, postData.value)">Post Data</button>
+        </div>
+    </div>
+
+    <!-- Notifications & Results -->
+    <div id="notifications" class="container"></div>
+    <div id="hits" class="container"></div>
+
+    <!-- Footer -->
+    <footer class="py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    SlimJEC - a feather light JavaScript ElasticSearch Client.
+                    <a href="https://github.com/artsakenos/SlimJec/blob/master/README.md" target="_blank">Read more</a>.
+                </div>
+                <div class="col-md-4">
+                    <small>Copyright &copy; InfoDev - Ver. 2019-10-25. </small>
                 </div>
             </div>
-        </footer>
-    </body>
+        </div>
+    </footer>
+</body>
+
 </html>

@@ -1,3 +1,4 @@
 /nbproject
 /extra
-/SlimJEC/SlimJEC_Config_*.js
+/slim_suite/config/*
+/slim_suite/ultra_js/SlimIRC.js
